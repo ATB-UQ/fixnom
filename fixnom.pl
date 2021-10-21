@@ -8,7 +8,7 @@
 # 20210923    = M. Mobli (m.mobli@uq.edu.au)
 
 use Getopt::Long;
-
+use File::Basename;
 #READ OPTIONS ****************************
 GetOptions('i=s' => \$inputfile, 
 		   'o=s' => \$outputfile,
@@ -1395,7 +1395,8 @@ for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
 
 #### START PRINTING
     open(OUT, ">$outputfile") || die "Can't open output file";
-    $output2 = sprintf("translate_%s", $outputfile);
+	my($filename, $directories, $suffix) = fileparse($outputfile);
+    $output2 = sprintf("translate_%s", $filename);
     open(OUT2, ">$output2") || die "Can't open output file";
     printf OUT2 "OLD NEW\n";
 

@@ -60,7 +60,7 @@ foreach $line (@rlib)
         {
             $adat++;
             $atno=$fields[4];
-            &getattyp($atno,$attyp);
+            getattyp($atno,$attyp);
             #printf "Atoms %s **%s %i\n", $fields[1], $attyp, $fields[4];
             $el_t1[17+$adat] = $fields[1];
             $el_t2[17+$adat] = $attyp;
@@ -72,29 +72,9 @@ foreach $line (@rlib)
 
         $foundres = 1;
         $hlin = $i;
-#            if ($fields[4] == 1 )
-#            {
-#                printf "Error – we are in N-terminal. \n";
-#                exit;
-#            }
-#            if ($fields[5] == $fields[3] )
-#            {
-#                printf "Error – we are in C-terminal. \n";
-#                exit;
-#            }
-#            unless ($fields[5] == $fields[3]-1 && $fields[4] == 3)
-#            {
-#                printf "Error – unfamiliar formatting. \n";
-#                exit;
-#            }
+
         $resnam=$fields[1];
-#       Need to get backbone Oxygen which is normally the 5th (last) entry in
-#            RESIDUE   A8EU     8   38    3   37
-#       for N-term
-#
-#       for C-term
-#
-#
+
             if ($fields[3]==$fields[5])      # C terminal residue   # Doesn't affect start of frame or end just where CA is
             {
                 $cterm=1;
@@ -105,6 +85,9 @@ foreach $line (@rlib)
             {
                 $nterm=1;
                 $at_n=1;
+                $at_o=$fields[5];
+                $at_c = $at_o - 1;
+
             }
             if($fields[4]==3 && $fields[3]==$fields[5]+1)   # does not work for N or C term residues
             {
@@ -166,7 +149,7 @@ if ($foundres == 0)
     exit;
 
 }
-
+#printf "%i %i %i \n", $at_n, $at_ca, $at_c;
 #   identify ca - works for all
 for ($k=1; $k <= $numlin; $k++)
 {
@@ -298,7 +281,7 @@ for ($i=1 ; $i < $nhat ; $i++)
 for ($i=1 ; $i < $nhat ; $i++)
 {
     $attyp = $lmat[2][$i];          # get atom number  - used for priority
-    &getatno($attyp, $atno);
+    getatno($attyp, $atno);
     $lmat[10][$i]=$atno;
 }
 #   FORM CHAINS
@@ -389,47 +372,47 @@ $dum=0;
 #
 #
 $test=0;
-if ($test == 1)
-{
-    $bmul_tot=0;        # how many atoms have bond multiplicities
-    $bmul_id[0]=0;      # which atom has bond multiplicity
-    $bmul_n[0]=0;       # how many bond multiplicities (1 for double, 2 for triple etc.)
-    $bmul_an[0][0]=0;   # what is the weight of each of those
-    $bmul_at[0][0]='';  # atom type of each of those
-    # example input file
-    # Tot 2              : How many unique atoms have multiple bonds
-    # ID-MULT 8 2        : Atom 8 has 2 multiple bonds
-    # ID-MULT 12 1       : Atom 12 has 1 multiple bonds
-    # IN 8 2 8 O         : Atom 8 had Double bond to a carbon
-    # IN 8 2 8 O         : Atom 8 also has a Double bond to a carbon
-    # IN 12 3 6 C         : Atom 12 has a triple bond to an oxygen
-    #
-    
-    for ($k=1 ; $k < $nhat ; $k++)  # should be nhat - but not doing this
-    {
-        for ($i =1 ; $i < $bmul_tot ; $i++)
-        {
-            if ($lmat[1][$k] == $bmul_id[$i])
-            {
-                for ($j=1 ; $j < $bmul_n[$i] ; $j++)
-                {
-                    $lmat[1][$nhat+$dum]=1000+$dum;         #atom ID
-                    $lmat[2][$nhat+$dum]=$bmul_at[0][0];               #atom TYPE
-                    $lmat[3][$nhat+$dum]=$lmat[1][$i];      #atom CONNECTION
-                    $lmat[4][$nhat+$dum]=0;                 #atom C2
-                    $lmat[5][$nhat+$dum]=0;                 #atom C3
-                    $lmat[6][$nhat+$dum]=0;                 #atom C4
-                    $lmat[7][$nhat+$dum]=$lmat[7][$k];      #atom CHAIN ID
-                    $lmat[8][$nhat+$dum]=0;                 #atom C4
-                    $lmat[9][$nhat+$dum]=$lmat[1][$k];      #PAIRWISE CONNECTION (BACK TO CA)
-                    $lmat[10][$nhat+$dum]=$bmul_an[$i][$j];                #atom NUMBER - FOR PRIORITY
-                    $dum++;
-                }
-            }
-        }
-    
-    }
-}
+#if ($test == 1)
+#{
+#    $bmul_tot=0;        # how many atoms have bond multiplicities
+#    $bmul_id[0]=0;      # which atom has bond multiplicity
+#    $bmul_n[0]=0;       # how many bond multiplicities (1 for double, 2 for triple etc.)
+#    $bmul_an[0][0]=0;   # what is the weight of each of those
+#    $bmul_at[0][0]='';  # atom type of each of those
+#    # example input file
+#    # Tot 2              : How many unique atoms have multiple bonds
+#    # ID-MULT 8 2        : Atom 8 has 2 multiple bonds
+#    # ID-MULT 12 1       : Atom 12 has 1 multiple bonds
+#    # IN 8 2 8 O         : Atom 8 had Double bond to a carbon
+#    # IN 8 2 8 O         : Atom 8 also has a Double bond to a carbon
+#    # IN 12 3 6 C         : Atom 12 has a triple bond to an oxygen
+#    #
+#
+#    for ($k=1 ; $k < $nhat ; $k++)  # should be nhat - but not doing this
+#    {
+#        for ($i =1 ; $i < $bmul_tot ; $i++)
+#        {
+#            if ($lmat[1][$k] == $bmul_id[$i])
+#            {
+#                for ($j=1 ; $j < $bmul_n[$i] ; $j++)
+#                {
+#                    $lmat[1][$nhat+$dum]=1000+$dum;         #atom ID
+#                    $lmat[2][$nhat+$dum]=$bmul_at[0][0];               #atom TYPE
+#                    $lmat[3][$nhat+$dum]=$lmat[1][$i];      #atom CONNECTION
+#                    $lmat[4][$nhat+$dum]=0;                 #atom C2
+#                    $lmat[5][$nhat+$dum]=0;                 #atom C3
+#                    $lmat[6][$nhat+$dum]=0;                 #atom C4
+#                    $lmat[7][$nhat+$dum]=$lmat[7][$k];      #atom CHAIN ID
+#                    $lmat[8][$nhat+$dum]=0;                 #atom C4
+#                    $lmat[9][$nhat+$dum]=$lmat[1][$k];      #PAIRWISE CONNECTION (BACK TO CA)
+#                    $lmat[10][$nhat+$dum]=$bmul_an[$i][$j];                #atom NUMBER - FOR PRIORITY
+#                    $dum++;
+#                }
+#            }
+#        }
+#
+#    }
+#}
 
 
 $test=0;
@@ -502,7 +485,7 @@ $nhat=$nhat+$dum;
 #################  all 1 bond 2 bond 3 bond etc. connectivities for all atoms. - to be used later for assigning priority
 for ($i=1 ; $i < $nhat ; $i++)
 {
-#    printf "%i atoms 1 bond away from %s: \n", $lmat[1][$i], $lmat[12][$i];
+    #printf "%i atoms 1 bond away from %s: \n", $lmat[1][$i], $lmat[12][$i];
     $l=0;
     $master_l[$i][$l] = $lmat[1][$i];   # first entry is itself
 
@@ -512,7 +495,7 @@ for ($i=1 ; $i < $nhat ; $i++)
         {
             if ($lmat[1][$i] == $lmat[$k][$j])
             {
- #               printf "%i ", $lmat[1][$j];
+     #           printf "%i ", $lmat[1][$j];
                 $l++;
                 $bond_list[1][$i][$l] = $lmat[1][$j];
                 $bond_lst_l[1][$i]=$l;
@@ -577,6 +560,11 @@ for ($i=1 ; $i < $nhat ; $i++)      ### just for printing
     {
         for ($j=1 ; $j <= $bond_lst_l[$x][$i] ; $j++)       # how many entries in x-bond list - go through each
         {
+            $dist_ca=-1;
+            if ($bond_list[$x][$i][$j] == $at_ca)
+            {
+                $dist_ca[$i]=$x;
+            }
             #printf "id = %i, i = %i, j= %i, x = %i, list:  %i\n", $lmat[1][$i], $i, $j, $x, $bond_list[$x][$i][$j];
         }
     }
@@ -601,8 +589,51 @@ $lmat[11][1]=0;
 $nhat=$nhat-$dum;
 for ($i=1 ; $i < $nhat-1 ; $i++)
 {
+    $dumi[$i]=$i;
+}
+
+
+for ($dmi=1 ; $dmi < $nhat-1 ; $dmi++)
+{
+    $i=$dumi[$dmi];
+####### NEED TO MAKE SURE I SORT FUTURE ATOMS ONCE CHAINS ARE BEING ASSIGNED
+    #printf "xxxx: %i %i %i\n", $lmat[1][$i], $dist_ca[$i], $i;
+    $isort = 0;
+
+    for ($ix=1 ; $ix < $nhat-1 ; $ix++)
+    {
+        if($dist_ca[$ix] == $dist_ca[$i]+1)
+        {
+           
+            #printf "id: %i, chain: %i, seen: %i, dist: %i, connected to: %i ", $lmat[1][$ix], $lmat[8][$ix], $lmat[11][$ix], $dist_ca[$ix], $lmat[9][$ix];
+            $tsrtid[$isort]=$lmat[1][$ix];
+            $tsrtpr[$isort]=0;
+            $tsrtpt[$isort]=$ix;
+            $tsrtpr[$isort]=$lmat[8][$ix];
+            $isort++;
+        }
+    }
+    for ($ix=0; $ix < $isort-1 ; $ix++)
+    {
+        for ($jx=$ix+1; $jx < $isort ; $jx++)
+        {
+            if($tsrtpr[$ix] > $tsrtpr[$jx])
+            {
+#                 ($first, $second) = ($second, $first);
+                ($tsrtpr[$ix], $tsrtpr[$jx]) =  ($tsrtpr[$jx], $tsrtpr[$ix]);
+                ($tsrtid[$ix], $tsrtid[$jx]) =  ($tsrtid[$jx], $tsrtid[$ix]);
+                $sw1=$tsrtpt[$ix];
+                $sw2=$tsrtpt[$jx];
+                (  $dumi[$sw1],   $dumi[$sw2]) =  (  $dumi[$sw2],   $dumi[$sw1]);
+                #printf "swap atoms %i and %i, %i %i\n", $tsrtid[$ix], $tsrtid[$jx], $dumi[$sw1],   $dumi[$sw2];
+            }
+        }
+    }
+### END    ####### NEED TO MAKE SURE I SORT FUTURE ATOMS ONCE CHAINS ARE BEING ASSIGNED
+
+    
 #    $attyp = $lmat[2][$i];
-#    &getatno($attyp, $atno);
+#    getatno($attyp, $atno);
 #    $lmat[10][$i]=$atno;
     $t_chains=$t_chains+$c_chains;
     $c_chains=0;
@@ -611,299 +642,136 @@ for ($i=1 ; $i < $nhat-1 ; $i++)
     $fpr_i[$i]=0;
 
 ############        ASSIGNING PRIORITY  ############
-                if ($bond_lst_l[1][$i]>2)               # if more than 2 attached heteroatmos, then this is a branch
+                if ($bond_lst_l[1][$i]>2 || ($bond_lst_l[1][$i] == 2 && $lmat[1][$i] == $at_ca) )               # if more than 2 attached heteroatmos, then this is a branch
                 {
                     for ($j2=1 ; $j2 <= $bond_lst_l[1][$i] ; $j2++)         # check how many branching atoms > $i - > if less than $i then not branch
                     {
-                        if ($bond_list_ptr[1][$i][$j2] > $i && $lmat[1][$bond_list_ptr[1][$i][$j2]] < 1000)                # since things are sorted above if the id is less than current ID then it can be ignored
+                        if ($bond_list_ptr[1][$i][$j2] > $i && $lmat[1][$bond_list_ptr[1][$i][$j2]] < 1000)
                         #if ($bond_list_ptr[1][$i][$j2] > $i )                # since things are sorted above if the id is less than current ID then it can be ignored
                         {
+                            if ($dist_ca[$bond_list_ptr[1][$i][$j2]] > $dist_ca[$i])
+                            {
                             $addchain++;                                    # if more than 1 you really do have a new branch - addchain tells you how many chains needed
+                                # probably should not increment if the atom has been seen before - COULD LEAD TO EXTRA CHAINS BEING ADDED THAT ARE NOT USED.
                             $fpr[$addchain]=$bond_list_ptr[1][$i][$j2];     # ptr of first atom in new chain
                             $cord[$addchain]=$addchain;                     # chain value/number
                                                                             # add chain tells you how many chains that need to be prioritised.
+                           # printf "Atom i: %i branch: %i from: %i chain id: %i\n", $lmat[1][$fpr[$addchain]], $addchain, $lmat[1][$i], $lmat[8][$fpr[$addchain]];
+                            #printf "Atom i: %i branch: %i from: %i chain id: %i\n", $dist_ca[$fpr[$addchain]], $dist_ca[$i], $lmat[1][$i];
+                            }
                         }
                     }
                 }
-#       i have list of atoms that need to be prioritised
+#    printf "b %i %i %i\n", $lmat[1][$i], $lmat[8][$i], $addchain;
+
+    #       i have list of atoms that need to be prioritised
         if($addchain > 1)
         {
-################ Check priority of hits and sort based on hit #####################
-###########      Check priority of atom itself.                 ######## needs to be done separately as it is not part of the bond_list.
-            
-            
-            
-            
-            
-####### NEED TO CREATE A MATRIX THAT LOOKS LIKE THIS
-#           C1  C2  C3  ...C_ADDCHAIN
-#   SHELL 0
-#   SHELL 1
-#   SHELL 2
-#   .
-#   .
-#   ALL ENTRIES ARE 0
-#   VALUES IN MATRIX ARE ATOM NUMBERS
-#   for each of the atoms at position SHELL 0 write out the priorities.
-#   for each of these atoms
-            for ($p = 1 ; $p <= $addchain ; $p++)
-            {
-                $x=0;
-                $i2 = $fpr[$p];
-                $pr_mat[$p][$x] =  $lmat[10][$i2];
-                for ($x = 1; $x < $nhat ; $x++)
-                {
-                    $pr_mat[$p][$x] =  0;
-                    if ($bond_lst_l[$x][$i2] > 0)
-                    {
+           # printf "BRANCH branch: %i from: %i\n", $addchain, $lmat[1][$i], ;
+            $nors=0;
+            sub_priority();
 
-                        $i3             = $bond_list_ptr[$x][$i2][1];
-                        $maxp           = $lmat[10][$i3];                              # the first entry
-                        $pr_mat[$p][$x] = $lmat[10][$i3];
-                        #printf "Atom i: %i Bonds away: %i Priority: %i\n", $lmat[1][$fpr[$p]], $x, $lmat[10][$i3], ;
-
-                        for ($j=1 ; $j <= $bond_lst_l[$x][$i2] ; $j++)       # how many entries in x-bond list - go through each
-                        {
-                            $i3=$bond_list_ptr[$x][$i2][$j];
-                            if ($lmat[10][$i3] > $maxp )
-                            {
-                                $pr_mat[$p][$x] = $lmat[10][$i3];
-                                $maxp           = $lmat[10][$i3];
-                            }
-                        }
-                    }
-                }
-                $fpr_i[$i]=0;
-            }
-            for ($p = 1 ; $p <= $addchain-1 ; $p++)
-            {
-                for ($p2 = 1+$p ; $p2 <= $addchain ; $p2++)
-                {
-                    for ($x = 0; $x < $nhat ; $x++)
-                    {
-                        #printf "Atom i: %i Bonds away: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p]], $x, $pr_mat[$p][$x], $p;
-                        #printf "CF A i: %i Bonds away: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p2]], $x, $pr_mat[$p2][$x], $p2;
-                        #if ($pr_mat[$p][$x] == 0) {printf "should exit here saying that assignment is arbitrary\n"};
-####################
-#                        THIS IS WHERE THE GEOMETRIC CIP CAN BE ADDED LATER
-###################
-                        $i2=$fpr[$p];
-                        $i22=$fpr[$p2];
-                        $fine=0;
-                        $longest = $bond_lst_l[$x][$i2];
-                        if ($bond_lst_l[$x][$i2] < $bond_lst_l[$x][$i22] ) {$longest = $bond_lst_l[$x][$i22]};
-                        if ($pr_mat[$p2][$x] == $pr_mat[$p][$x] && $longest > 1)
-                        {
-                            #printf "Current mess.\n";
-                            # MAKE 2 DUMMY LISTS - DL1, DL2, INITIALISE LISTS TO SAME LENGTH
-                            $dll = $bond_lst_l[$x][$i22];
-                            if ( $bond_lst_l[$x][$i2] > $bond_lst_l[$x][$i22] )
-                            {
-                                $dll = $bond_lst_l[$x][$i2];
-                            }
-                            for ($dj = 1; $dj <= $nhat ; $dj++)     # sort will reorder everythign in this array, so it must be 0 for all possible length - alternatively if the sort function is truncated it would also work
-                            {
-                                $dl1[$dj]=0;
-                                $dl2[$dj]=0;
-                            }
-   #                        FILL DUMMY LIST
-                            for ($j=1 ; $j <= $bond_lst_l[$x][$i2] ; $j++)       # how many entries in x-bond list - go through each
-                            {
-                                $i3=$bond_list_ptr[$x][$i2][$j];
-                                #printf"Blind luck  %i %i %i %i\n",   $lmat[1][$i3], $lmat[10][$i3], $longest, $dll;
-                                $dl1[$j]=$lmat[10][$i3];
-                            }
-                            for ($j2=1 ; $j2 <= $bond_lst_l[$x][$i22] ; $j2++)       # how many entries in x-bond list - go through each
-                            {
-                                $i4=$bond_list_ptr[$x][$i22][$j2];
-                                #printf"Blind2 luck %i %i\n",   $lmat[1][$i4], $lmat[10][$i4];
-                                $dl2[$j2]=$lmat[10][$i4];
-                            }
-#                           SORT DUMMY LISTS
-                            @dl1s = sort { $b <=> $a } @dl1;
-                            @dl2s = sort { $b <=> $a } @dl2;
-#                           COMPARE DUMMY LISTS - IF THERE IS A WINNER RECORD THIS AND NOTE THAT THERE WAS A WINNER IN VARIABLE $FINE=1 AND EXIT
-                            $fine=0;
-                            for ($dj = 1; $dj <= $dll ; $dj++)
-                            {
-                                #printf "Comparing %i %i.\n", $dl1s[$dj] , $dl2s[$dj];
-
-                                if ($dl1s[$dj] > $dl2s[$dj])
-                                {
-                                    #printf "i2 %i %i wins over %i. \n", $lmat[1][$i2], $dl1s[$dj] , $dl2s[$dj];
-                                    $fine=1;
-                                    last;
-                                    #$dl1 -> $i2 is $p,
-                                    #$dl2 -> $i22 is $p2
-                                    
-                                }
-                                if ($dl1s[$dj] < $dl2s[$dj])
-                                {
-                                    #printf "i22 %i %i wins over %i.\n", $lmat[1][$i22], , $dl2s[$dj] , $dl1s[$dj];
-                                    $temp_ch            = $cord[$p];
-                                    $cord[$p]           = $cord[$p2];
-                                    $cord[$p2]          = $temp_ch;
-
-                                    for ($x2 = 0; $x2 < $nhat ; $x2++)
-                                    {
-                                        $temp_val           = $pr_mat[$p][$x2];
-                                        $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
-                                        $pr_mat[$p2][$x2]   = $temp_val;
-                                    }
-                                    $fine=1;
-                                    last;
-                                }
-                            }
-                            if ($fine==1) {last} ;  # no need to keep looking at this bond for current p and p2 as it is resolved above
-                            #############   START R/S CIP RULE ###################
-                                                if ($fine==0)
-                                                {
-                                                    #printf "not resolved %i %i %i %i %i\n",  $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]], $lmat[1][$i], $lmat[9][$i], $bond_lst_l[1][$i] ;
-                                                    $found_4=0;
-
-                                                    if ($bond_lst_l[1][$i] == 4)  {$found_4=1} ;    # four heteroatoms
-
-                                                    if ($bond_lst_l[1][$i] == 3)                    # three heteroatoms
-                                                    {
-                                                        ########## get attached H
-                                                                                 for ($xi=1 ; $xi <=$numlin ; $xi++)        #   print hydrogens
-                                                                                 {
-                                                                                     @fields = split (' ', $fil_c[$xi]);
-                                                                                     if ($xi > $atstart)
-                                                                                     {
-                                                                                         if($fields[2] =~ 'H_')
-                                                                                         {
-                                                                                             if ($fields[8] == $lmat[1][$i])        # attached carbon
-                                                                                             {
-                                                                                                 $found_4=1;
-                                                                                             }
-                                                                                         }
-                                                                                     }
-                                                                                 }
-
-                                                         ##################
-                                                    }
-                                                    if ($found_4 == 1)
-                                                    {
-                                                        for ($xi=1 ; $xi <=$numlin ; $xi++)         #   print hydrogens
-                                                        {
-                                                            @fields = split (' ', $fil_c[$xi]);
-                                                            if ($xi > $atstart)
-                                                            {
-                                                                #printf "%i %f %f\n",  $fields[0], $fields[6], $fields[7];
-
-                                                                if($fields[0] == $lmat[1][$i])
-                                                                {
-                                                                    @at4 = ($fields[5], $fields[6], $fields[7]);
-                                                                }
-                                                                if($fields[0] == $at_n && $lmat[9][$i] == 0)    # first nitrogen you hit - shoudl be 1.
-                                                                {
-                                                                    @at3 = ($fields[5], $fields[6], $fields[7]);
-                                                                }
-
-                                                                if($fields[0] == $lmat[9][$i] && $lmat[9][$i] > 0)
-                                                                {
-                                                                    #print $lmat[9][$i] $fields0;
-                                                                            @at3 = ($fields[5], $fields[6], $fields[7]);
-                                                                }
-                                                                if($fields[0] == $lmat[1][$fpr[$p]])
-                                                                {
-                                                                            @at1 = ($fields[5], $fields[6], $fields[7]);
-                                                                }
-                                                                if($fields[0] == $lmat[1][$fpr[$p2]])
-                                                                {
-                                                                            @at2 = ($fields[5], $fields[6], $fields[7]);
-                                                                }
-                                                            }
-                                                        }
-                              
-                                                         &getrs(@at1, @at2, @at3, @at4, $det);
-                                                         #printf "%f\n", $det;
-                                                         #printf "%f\n", $det;
-                                                         if ($det < 1)
-                                                         {
-                                                             #printf "Clockwise. order is: %i %i. \n", $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]];
-                                                         }
-                                                         if ($det > 1)
-                                                         {
-                                                             #printf "Anti-clockwise. order is: %i %i. \n", $lmat[1][$fpr[$p2]],  $lmat[1][$fpr[$p]];
-                                                             $temp_ch            = $cord[$p];
-                                                             $cord[$p]           = $cord[$p2];
-                                                             $cord[$p2]          = $temp_ch;
-
-                                                             for ($x2 = 0; $x2 < $nhat ; $x2++)
-                                                             {
-                                                                 $temp_val           = $pr_mat[$p][$x2];
-                                                                 $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
-                                                                 $pr_mat[$p2][$x2]   = $temp_val;
-                                                             }
-                                                             last;
-                                                         }
-                                                     
-                                                    }
-
-                                                }
-                            ########### END R/S CIP RULE ##############
-                        }
-                        if ($pr_mat[$p2][$x] > $pr_mat[$p][$x])
-                        {
-                            $temp_ch            = $cord[$p];
-                            $cord[$p]           = $cord[$p2];
-                            $cord[$p2]          = $temp_ch;
-
-                            for ($x2 = 0; $x2 < $nhat ; $x2++)
-                            {
-                                $temp_val           = $pr_mat[$p][$x2];
-                                $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
-                                $pr_mat[$p2][$x2]   = $temp_val;
-                            }
-                            last;
-                        }
-                        if ($pr_mat[$p2][$x] < $pr_mat[$p][$x])
-                        {
-                            last;
-                        }
-                    }
-
-                }
-            }
-            for ($p = 1 ; $p <= $addchain ; $p++)       # PRINTING ONLY
-            {
-                #printf "Chain order is: %i %i\n", $p, $cord[$p];
-                #printf "First atom in chain %i is: %i with priority: %i - chain ID: %i\n", $p, $lmat[1][$fpr[$p]], $cord[$p], $c_chains+($addchain-$cord[$p]);
-                    #$c_chains=$c_chains+($addchain-$cord[$p]);
-            }
 ############## ABOVE MATRIX CREATED
 #############       END ASSIGNING PRIORITY  ##########
     
         }
     
-    
-#    $lmat[8][$i]=$t_chains;      #ca chain will be chain 1
-    for ($j=$i+1 ; $j < $nhat ; $j++)
-    {
-        
-        if ($lmat[1][$i] == $lmat[9][$j])   # This atom is connected to $i
-        {
+#    printf "%i %i %i\n", $lmat[1][$i], $lmat[8][$i], $i;
 
-            $lmat[8][$j]=$lmat[8][$i];      #same chain id as what it is connected to.
-            $lmat[11][$j]=$lmat[11][$i]+1;
+#    $lmat[8][$i]=$t_chains;      #ca chain will be chain 1
+#    for ($j=$i+1 ; $j < $nhat ; $j++)
+    
+###     The bit below takes the information about priorities coming out of the priority subroutine and uses this to increment chains.
+#       First bit just establishes which branching atoms are to be considered [this information is in addchains, but would not be present for non-branch points]
+#######################################################################################################
+#   If the atom
+#    for all atoms after CA -
+#        check all connnected atoms 1 bond away - 1 at a time
+#            if an atom 1 bond away from a given atom is this atom (i.e. it is the next atom along the chain)
+#                if that atom has not been seen - or it has been seen and appears after this atom
+#                    then do something unless
+#                        the atom already belongs to a chain that has higher priority than this chain
+#    tm_n = 1 then does the something.
+#
+#######################################################################################################
+    for ($j=2 ; $j < $nhat ; $j++)
+    {
+        #printf "%i %i %i\n", $lmat[1][$j], $lmat[8][$j], $dist_ca[$j];
+        $m_tn = 0;
+        for ($j2=1 ; $j2 <= $bond_lst_l[1][$j] ; $j2++)         # check how many branching atoms > $i - > if less than $i then not branch
+        {
+            if ($bond_list[1][$j][$j2] == $lmat[1][$i] )                #
+            {
+                    # if atoms are connected and the atom has not been seen before - or if it has been seen if it appears after this atom then print
+                if (($lmat[11][$j] == 0 ) || ($lmat[11][$j] > 0 && $lmat[11][$j] > $lmat[11][$i]) )
+                {
+                    $m_tn=1;
+                #printf "connected2 tot atoms: %i atom: %i one-bond to: %i - order of j, %i order of i %i addchain %i\n", $bond_lst_l[1][$j] ,$bond_list[1][$j][$j2], $lmat[1][$j], $lmat[8][$j], $lmat[8][$i], $addchain;
+                    if ($lmat[11][$j] > 0)    # atom has been seen before
+                    {
+                        if ($lmat[8][$j] < $lmat[8][$i])    # if the priority of that previously seen atom is higher than current chain then ignore
+                        {
+                            $m_tn=0;
+                 #         printf "bottom of ring? %i %i %i %i\n", $lmat[1][$j] , $lmat[1][$i], $lmat[8][$j] , $lmat[8][$i];
+                        }
+                    }
+                }
+            }
+        }
+#        printf "x %i %i %i\n", $lmat[1][$i], $lmat[8][$i], $m_tn;
+#######################################################################################################
+# add that atom to this chain [i.e. give it the same chain ID]
+# and give it a distance to ca - which tells the above that it has been seen now
+#    in cases where you have more than 1 chain being evaluated
+#        check each chain and only apply this logic to the chain with the highest priority
+#            the other chains with lower priority will get an incremented chain ID.
+#
+#######################################################################################################
+
+        if ($m_tn == 1 )
+        {
+#   don't update the chain id if the chain id of that atom is lower than the chain id of this atom.
+            $assigned=0;
+            if ($addchain <= 1)
+            {
+                $lmat[8][$j]=$lmat[8][$i];      #same chain id as what it is connected to.
+                $assigned=1;
+            }
+                $lmat[11][$j]=$lmat[11][$i]+1;  # this should be moot
+                #printf "connected j %i, i %i i %i tn %i ord j %i i %i\n", $lmat[1][$j], $lmat[1][$i], $i, $m_tn, $lmat[8][$j], $lmat[8][$i];
             if ($addchain >= 1)
             {
 
                 $c_chains=$addchain-1;
+                #$c_skip=0;
+                #printf "j: %i \n", $j;
+
                 for ($p = 1 ; $p <= $addchain ; $p++)
                 {
+                    #printf "addchain  %i %i, j %i, i %i, cord[, %i, fpr, %i\n", $p, $lmat[1][$fpr[$p]], $lmat[8][$j], $lmat[8][$i], $cord[$p], $fpr[$p] ;
+
                     if ($fpr[$p] == $j)
                     {
-                        if ($cord[$p] == 1)
+                        if ($cord[$p] == 1)                                 #   There is an issue here that means that if the second priority atom is the continuation of the chain it will not be done correctly, and instead it is given a new chain ID. This is OK as there is a bit later that fixes this. But the logic is not perfect here. You would have to keep track of if $lmat[8][$i] has been given to anyone and then only make a new chain if it has.
                         {
-                            $lmat[8][$j]=$lmat[8][$i];
+                            $lmat[8][$j]=$lmat[8][$i];                      
+                            $assigned=1;
+
                         }else{
-                            $lmat[8][$j] = $t_chains+$cord[$p]-1;
+                     #       if (($lmat[8][$j] > 0) )
+                     #       {
+                     #         printf "skip with %i\n", $lmat[8][$j];
+                     #       }
+                            if ($lmat[8][$j] == 0)
+                            {
+                     #           printf "? %i %i %i\n", $lmat[8][$j], $t_chains, $cord[$p]-1;
+                                $lmat[8][$j] = $t_chains+$cord[$p]-1;           #   THIS WILL GENERATE SOME EMPTY CHAINS WHICH WILL GET FIXED LATER
+                            }
                         }
                             
-#                    printf "Branch: %i %i %i %i %i\n", $lmat[1][$i], $lmat[1][$j], $lmat[8][$j], $t_chains, $cord[$p];
+                    #printf "Branch: bpoint %i branch %i to atom: %i with chain id %i total chains %i cord p %i p %i %i\n", $lmat[1][$i], $lmat[8][$i], $lmat[1][$j], $lmat[8][$j], $t_chains, $cord[$p], $p, $assigned;
+                   # printf "p: %i, swapped with cordp %i \n", $p, $cord[$p];
+
                     }
                 }
             }
@@ -936,34 +804,401 @@ for ($j=1 ; $j <= $t_chains ; $j++)
 #    }
 #    printf "\n";
 }
-#for ($j=1 ; $j <= $t_chains ; $j++)         ######### for printing only
+#for ($i=1 ; $i < $nhat ; $i++)
 #{
-#    printf "CHAIN %i: ", $j;
+#    printf "dists: %i %i %i %i\n", $dist_ca[$i], $lmat[1][$i], $lmat[11][$i], $lmat[8][$i];
+#}
+#
+#printf "$at_ca\n";
+#for ($j=1 ; $j <= $t_chains ; $j++)         ######### f
+#{
+#    printf "CHAIN %i (%i): ", $j, $cxl[$j];
 #    for ($k = 0 ; $k < $cxl[$j] ; $k++)
 #    {
-#            printf "%i ", $cx[$j][$k]; #, $cx_1[$j][$k];
+#        printf "%i ", $cx[$j][$k], $cxl[$j];
 #    }
 #    printf "\n";
+#
+#}
+############################################
+############################################  JOIN CHAINS THAT ARE BROKEN
+
+$nj=0;
+for ($j=1 ; $j <= $t_chains ; $j++)
+{
+    #printf "CHAIN %i: ", $j;
+    for ($k = 0 ; $k < $cxl[$j] ; $k++)
+    {
+        if ($k == $cxl[$j]-1)
+        {
+            for ($j2=1 ; $j2 <= $t_chains ; $j2++)
+            {
+                for ($k2 = 0 ; $k2 < $cxl[$j2] ; $k2++)
+                {
+                    if ($k2 == 0 && $j != $j2)
+                    {
+                        ####################        LAST: $cx[$j][$k], FIRST(s): $cx[$j2][$k2]      ############
+
+                        #printf "Compare: LAST %i %i TO FIRST %i %i\n", $cx[$j][$k], $lmat[11][$cx_1[$j][$k]], $cx[$j2][$k2], $lmat[11][$cx_1[$j2][$k2]] ; #, $cx_1[$j][$k];
+                        if ($lmat[11][$cx_1[$j][$k]]+1 == $lmat[11][$cx_1[$j2][$k2]])
+                        {
+                            for ($i=1 ; $i < $nhat ; $i++)
+                            {
+                                if ($lmat[1][$i] == $cx[$j][$k])        # LAST ATOM CHECK ALL 1 BOND CONNECTIONS
+                                {
+                                    for ($j3=1 ; $j3 <= $bond_lst_l[1][$i] ; $j3++)       # how many entries in x-bond list - go through each
+                                    {
+                                        if ($bond_list[1][$i][$j3] == $cx[$j2][$k2] && $bond_list[1][$i][$j3] < 1000)
+                                        {
+                                            #printf "\n1 1 bond OF last %i  to first of other chain %i\n", $bond_list[1][$i][$j3], $cx[$j2][$k2];
+                                            #printf "\n join %i to end of %i \n", $j2, $j;
+                                            $bj[$nj]=$j;
+                                            $ej[$nj]=$j2;
+                                            $nj++;
+                                        }
+                                        
+                                        
+                                    }
+                                    #
+                                }
+                            }
+                        }
+
+                        ####################
+                        #printf "I'm first %i ", $cx[$j2][$k2]; #, $cx_1[$j][$k];
+                    }
+
+                }
+            }
+        }
+#        printf "%i ", $cx[$j][$k]; #, $cx_1[$j][$k];
+    }
+#    printf "\n";
+}
+#
+for ($j=1 ; $j <= $t_chains ; $j++)
+{
+    $gc[$j]=0;
+}
+
+for ($my_j=1 ; $my_j <= $t_chains ; $my_j++)         #########
+{
+    $addchain=0;
+    for ($i = 0; $i <$nj ; $i++)
+    {
+        #printf "A %i\n", $addchain;
+        if ($bj[$i] == $my_j)
+        {
+            $lastpt = $cxl[$my_j]-1;
+            
+         #   printf "JOIN THIS CHAIN %i (at: %i -adchain %i): \n", $my_j, $cx[$my_j][$lastpt], $addchain;
+            $addchain++;
+            $ptr1 = $cx_1[$ej[$i]][0];
+            $fpr[$addchain]=$ptr1;
+            $cord[$addchain]=$ej[$i];       # chain id of the attached thing
+        }
+        
+    }
+    if ($addchain > 1)
+    {
+        $nors=1;
+            sub_priority();
+        #printf "BRANCH branch: %i from: %i\n", $addchain, $lmat[1][$i], ;
+
+        for ($i = 0; $i <$nj ; $i++)
+        {
+            if ($bj[$i] == $my_j)
+            {
+                
+                #printf "JOIN THIS CHAIN %i (at: %i -adchain %i): \n", $my_j,$ej[$i], $addchain;
+                #            $cxl[$j]=0;
+                #            $cxp[$j]=$cxp[$ej[$i]];
+                #            $cxptr[$j]=$cxptr[$ej[$i]];
+                for ($ai = 2 ; $ai <= $addchain ; $ai++)
+                {
+                    if ($cord[$ai] == $ej[$i])
+                    {
+                        $bj[$i]=-1;
+                    }
+                 #   printf "Y %i %i\n", $cord[1], $addchain;
+                }
+            }
+        }
+        
+    }
+    #printf "\n";
+    
+}
+
+
+
+
+for ($j=1 ; $j <= $t_chains ; $j++)         #########
+{
+
+    for ($i = 0; $i <$nj ; $i++)
+    {
+        if ($bj[$i] == $j)
+        {
+#            printf "JOIN THIS CHAIN %i: \n", $j;
+#            $cxl[$j]=0;
+            $cxp[$j]=$cxp[$ej[$i]];
+            $cxptr[$j]=$cxptr[$ej[$i]];
+            for ($k2 = 0 ; $k2 < $cxl[$ej[$i]] ; $k2++)
+            {
+ #               printf "%i ", $cx[$ej[$i]][$k2]; #, $cx_1[$j][$k];
+                $l=$cxl[$j];
+                $cx[$j][$l]=$cx[$ej[$i]][$k2];
+                $cx_1[$j][$l]=$cx_1[$ej[$i]][$k2];
+                $cxl[$j]++;
+            }
+            $gc[$ej[$i]]=-1;
+        }
+
+    }
+#    printf "\n";
+    
+}
+
+
+#
+for ($j=1 ; $j <= $t_chains-1 ; $j++)         ######### f
+{
+#    printf "xj %i \n", $j;
+    for ($j2=$j+1 ; $j2 <= $t_chains ; $j2++)         ######### for
+    {
+#        printf "xj2 %i \n", $j2;
+
+        if ($gc[$j] < $gc[$j2] )  # overwrite this entry with last and truncate
+        {
+            for ($k = 0 ; $k < $cxl[$j2] ; $k++)
+            {
+                $cx[$j][$k]=$cx[$j2][$k]; #, $cx_1[$j][$k];
+                $cx_1[$j][$k]=$cx_1[$j2][$k];
+            }
+            $cxl[$j] = $cxl[$j2] ;
+            $cxp[$j]=$cxp[$j2];
+            $cxptr[$j]=$cxptr[$j2];
+            $tgc = $gc[$j];
+            $gc[$j]=$gc[$j2]    ;
+            $gc[$j2] = $tgc;
+        }
+    }
+}
+#for ($j=1 ; $j <= $t_chains ; $j++)
+#{
+#    printf "xsCHAINss %i: (%i)", $j, $gc[$j];
+#    for ($k = 0 ; $k < $cxl[$j] ; $k++)
+#    {
+#        printf "%i ", $cx[$j][$k]; #, $cx_1[$j][$k];
+#    }
+#    printf "\n";
+#
 #}
 
-#   order based on length
-for ($i = 1 ; $i < $chains ; $i++)
+
+$e_chains = 0;
+for ($j=1 ; $j <= $t_chains ; $j++)         ######### for
 {
-    for ($j = $i+1 ; $j <= $chains ; $j++)
+    if ($gc[$j] == -1)
     {
-        if ($cxl[$j] > $cxl[$i])
+        $e_chains = $j;
+        last;
+    }
+}
+if ($e_chains > 0) {$t_chains = $e_chains-1};
+#for ($j=1 ; $j <= $t_chains ; $j++)         ######### f
+#{
+#    printf "CHAIN %i (%i): ", $j, $cxl[$j];
+#    for ($k = 0 ; $k < $cxl[$j] ; $k++)
+#    {
+#        printf "%i ", $cx[$j][$k], $cx_1[$j][$k];
+#        #printf "%i ", $cx[$j][$k];
+#    }
+#    printf "\n";
+#
+#}
+
+
+
+############################################
+############################################ END JOINGING CHAINS
+######### swap chains based on order
+for ($cxj=1 ; $cxj < $t_chains ; $cxj++)
+{
+    $addchain = 1;
+    $ptr1 = $cx_1[$cxj][0];         # first atom in chain XJ
+
+    $fpr[$addchain]=$ptr1;
+    $cord[$addchain]=$cxj;
+    for ($cxj2=$cxj+1 ; $cxj2 <= $t_chains ; $cxj2++)
+    {
+        if ($cxl[$cxj] > 0 && $cxl[$cxj2] > 0)
         {
+        $ptr2 = $cx_1[$cxj2][0];    # first atom in chain XJ2
+        if ($lmat[11][$ptr1] == $lmat[11][$ptr2])
+        {
+            $addchain++;
+            $fpr[$addchain]=$ptr2;
+            $cord[$addchain]=$cxj2;
+            #printf "Compare: FIRST %i TO FIRST %i. %i %i %i %i\n", $lmat[1][$ptr1], $lmat[1][$ptr2], $lmat[11][$ptr2], $lmat[11][$ptr1], $cxj, $cxj2 ; #, $cx_1[$j][$k];
+        }
+        }
+    }
+############
+            #############
+            #############
+            if($addchain > 1)
+            {
+#                for ($p = 1 ; $p <= $addchain ; $p++)       # PRINTING ONLY
+#                {
+#                    for ($cxj2=1 ; $cxj2 <= $t_chains ; $cxj2++)
+#                    {
+#                        if ($fpr[$p] == $cx_1[$cxj2][0])    # first atom in that chain matches fpr
+#                        {
+#                            printf "chain %i has %i priority\n", $cxj2, $p;
+#
+#                        }
+#                    }
+#
+#                }
+                $nors=1;
+                $ed=0;
+                sub_priority();
+                ######################      if two chains are indentical then order these based on what they are connected to   #####################
+                if ($ed==0)     # they are otherwise identical
+                {
+                    for ($p = 1 ; $p < $addchain ; $p++)       # PRINTING ONLY
+                      {
+                          for ($cxj2=1 ; $cxj2 <= $t_chains ; $cxj2++)
+                          {
+                              if ($fpr[$p] == $cx_1[$cxj2][0])    # first atom in that chain matches fpr
+                              {
+                                 $tx1=$lmat[9][$fpr[$p]];
+                                  for ($ix=1 ; $ix < $nhat ; $ix++)
+                                  {
+                                      if ($lmat[1][$ix] == $tx1)
+                                      {
+                                         # printf "prioirty of attached atom is: %i\n", $lmat[8][$ix];
+                                          $p1pr = $lmat[8][$ix];
+                                          $px1=$p;
+                                      }
+                                  }
+                                 # printf "chain %i has %i priority\n", $cxj2, $p;
+
+                              }
+                          }
+                          for ($p2 = $p+1 ; $p2 <= $addchain ; $p2++)       # PRINTING ONLY
+                            {
+                                for ($cxj2=1 ; $cxj2 <= $t_chains ; $cxj2++)
+                                {
+                                    if ($fpr[$p2] == $cx_1[$cxj2][0])    # first atom in that chain matches fpr
+                                    {
+                                       $tx2=$lmat[9][$fpr[$p2]];
+                                        for ($ix=1 ; $ix < $nhat ; $ix++)
+                                        {
+                                            if ($lmat[1][$ix] == $tx2)
+                                            {
+                                        #        printf "prioirty of attached atom is: %i\n", $lmat[8][$ix];
+                                                $p2pr = $lmat[8][$ix];
+                                                $px2=$p2;
+                                            }
+                                        }
+                                       # printf "chain %i has %i priority\n", $cxj2, $p2;
+
+                                    }
+                                }
+                            }
+                          if ($p1pr > $p2pr)
+                          {
+                              #printf "compared %i with %i and chain priority is: %i %i %i\n", $px1, $px2, $p1pr, $p2pr, $addchain;
+                              ($fpr[$px1], $fpr[$px2]) = ($fpr[$px2], $fpr[$px1]);
+                          }
+                      }
+                }
+####   END                ######################      if two chains are indentical then order these based on what they are connected to   #####################
+
+                #printf "ed %i\n", $ed;
+                for ($p = 1 ; $p <= $addchain ; $p++)
+                {
+                    for ($cxj2=1 ; $cxj2 <= $t_chains ; $cxj2++)
+                    {
+                        if ($fpr[$p] == $cx_1[$cxj2][0])    # first atom in that chain matches fpr
+                        {
+                            $i=$cxj2;
+                            #printf "chain %i has %i priority. length %i. cord: %i\n", $cxj2, $p, $cxl[$i], $cord[$p];
+                            if ($cxj2 != $cord[$p])
+                            {
+                             #   printf "Swap %i %i\n", $cord[$p], $cxj2;
+                                $i=$cxj2;
+                                $j=$cord[$p];
+                                $tvl1       = $cxl[$i];
+                                $tprt       = $cxp[$i];
+                                    for ($k = 0 ; $k < $cxl[$i] ; $k++)
+                                    {
+                                        $tvcx1[$k]  = $cx[$i][$k];
+                                        $tvcx5[$k]  = $cx_1[$i][$k];
+                                    }
+                                    for ($k = 0 ; $k < $cxl[$j] ; $k++)
+                                    {
+                                           $cx[$i][$k]     =    $cx[$j][$k];
+                                         $cx_1[$i][$k]     =  $cx_1[$j][$k];
+                                    }
+                                    $cxl[$i]        = $cxl[$j];
+                                    $cxp[$i]        = $cxp[$j];
+
+                                    $cxl[$j]        = $tvl1;
+                                    $cxp[$j]        = $tprt;
+                                    for ($k = 0 ; $k < $tvl1 ; $k++)
+                                    {
+                                           $cx[$j][$k]     = $tvcx1[$k];
+                                         $cx_1[$j][$k]     = $tvcx5[$k];
+                                    }
+                            }
+                                
+
+
+                        }
+                    }
+                }
+            #printf "BRANCH branch: %i from: %i\n", $addchain, $lmat[1][$i], ;
+
+
+        
+            }
+    
+}
+#for ($j=1 ; $j <= $t_chains ; $j++)         ######### f
+#{
+#    printf "A1: CHAIN %i: ", $j;
+#    for ($k = 0 ; $k < $cxl[$j] ; $k++)
+#    {
+#        printf "%i ", $cx[$j][$k];
+#    }
+#    printf "\n";
+#
+#}
+
+##   remove empty chains
+for ($i = 1 ; $i < $t_chains ; $i++)
+{
+    for ($j = $i+1 ; $j <= $t_chains ; $j++)
+    {
+        if ($cxl[$i] == 0)
+#            if ($cxl[$j] > $cxl[$i])
+        {
+#            printf "Warning orphan chain present.\n";
             $tvl1       = $cxl[$i];
             $tprt       = $cxp[$i];
             for ($k = 0 ; $k < $cxl[$i] ; $k++)
             {
-                $tvcx1[$k]  = $cx[$i][$k];
+                $tvcx1[$k]  =   $cx[$i][$k];
                 $tvcx5[$k]  = $cx_1[$i][$k];
             }
             for ($k = 0 ; $k < $cxl[$j] ; $k++)
             {
                    $cx[$i][$k]     =    $cx[$j][$k];
-                $cxptr[$i][$k]     =  $cx_1[$j][$k];
+                 $cx_1[$i][$k]     =  $cx_1[$j][$k];
             }
             $cxl[$i]        = $cxl[$j];
             $cxp[$i]        = $cxp[$j];
@@ -975,18 +1210,44 @@ for ($i = 1 ; $i < $chains ; $i++)
                    $cx[$j][$k]     = $tvcx1[$k];
                  $cx_1[$j][$k]     = $tvcx5[$k];
             }
-
         }
         
     }
 }
-#$cxp[2]=5;
+$shrink=0;
 
-######################################
-#   It's a bit unclear if at a branch point you simply continue to name based on priority or make new branches with new priorities or identify which is the main chain based on the priority of that chain - i think this is probably what it will be - and because it has the lowest priority
-#   It's clear that it follows taht the naming follows the chain structure. i.e. tryptophan does not have a z1!
-#   If same priority at atom +1 -> number of connected atoms at +1 -> priority at atom +2 -> if same number of connected atoms at +2
+for ($j=1 ; $j <= $t_chains ; $j++)         ######### f
+{
+    if ($cxl[$j] == 0)
+    {
+            $shrink++;
+    }
+}
+$t_chains = $t_chains-$shrink;
+#for ($j=1 ; $j <= $t_chains ; $j++)         ######### f
+#{
+#    printf "A1: CHAIN %i: ", $j;
+#    for ($k = 0 ; $k < $cxl[$j] ; $k++)
+#    {
+#        printf "%i ", $cx[$j][$k];
+#    }
+#    printf "\n";
 #
+#}
+###############   UPDATE LMAT[8]  ###########
+for ($j=1 ; $j <= $t_chains ; $j++)
+{
+      for ($k = 0 ; $k < $cxl[$j] ; $k++)
+       {
+           for ($i=1 ; $i < $nhat ; $i++)
+           {
+               if ($lmat[1][$i] == $cx[$j][$k])
+               {
+                    $lmat[8][$i] = $j ;
+               }
+           }
+       }
+}
 ##########
 ####### HOW MANY POSITIONS ARE THERE? ############
 $maxlmat=0;
@@ -1014,10 +1275,10 @@ for ($j=1 ; $j <= $t_chains ; $j++)
     {
             $t1=$cx_1[$j][$k];
             $t2=$lmat[11][$t1];
-#            printf "%i %i ", $cx[$j][$k], $t2;
+#           printf "%i %i %i ", $cx[$j][$k], $cx_1[$j][$k];
             $p_cx[$j][$t2]=$cx[$j][$k];
     }
-    #printf "\n";
+#    printf "\n";
 }
 ################ COMPARE POSITIONALLY
 for ($x=0 ; $x <= $maxlmat ; $x++)
@@ -1025,7 +1286,7 @@ for ($x=0 ; $x <= $maxlmat ; $x++)
     $count_matl=0;
     for ($j=1 ; $j <= $t_chains ; $j++)
     {
-#            printf "%i\t", $p_cx[$j][$x];
+            #printf "%i\t", $p_cx[$j][$x];
                 if ($p_cx[$j][$x] > 0)
                 {
                    $count_matl++;
@@ -1051,15 +1312,16 @@ for ($i=1 ; $i < $nhat ; $i++)
     if ($lmat[8][$i] == 1 && $c_ch_at[$lmat[11][$i]] == 1)
     {
         $lmat[13][$i] = sprintf("%s%s ", $lmat[2][$i], $gnam[$lmat[11][$i]]);
+        $lmat[13][$i] = sprintf("%-4s", $lmat[13][$i]);
         #if ($lmat[13][$i] =~ 'CA')
         #{
         #    printf "here %i\n", $lmat[9][$i];
         #}
     }else{
         $lmat[13][$i] = sprintf("%s%s%i", $lmat[2][$i], $gnam[$lmat[11][$i]], $lmat[8][$i]);
+        $lmat[13][$i] = sprintf("%-4s", $lmat[13][$i]);
+
     }
-#    if ()
-#    printf "%i xxxx %s %i %i\n", $lmat[1][$i], $lmat[13][$i], $lmat[8][$i] , $c_ch_at[$lmat[11][$i]] ;
 }
 #exit;
 
@@ -1097,8 +1359,9 @@ for ($i=1 ; $i <=$numlin ; $i++)        #   print hydrogens
             }
         if ($fields[8] == 1 && $nterm == 1)
         {
-         $hmat[21][$l]++;
-         $allnh=$hmat[21][$l];
+            $allnh++;
+            $hmat[21][$l]=$allnh;
+            #printf "dol %i\n", $allnh;
         }
         }
     }
@@ -1165,7 +1428,7 @@ for ($i=1 ; $i <=$hhat ; $i++)
                             }
                         }
                         
-                        &getrs(@at1, @at2, @at3, @at4, $det);
+                        getrs(@at1, @at2, @at3, @at4, $det);
                         if ($det < 1)
                         {
                             #printf "Clockwise.\n";
@@ -1246,7 +1509,7 @@ for ($i=1 ; $i <=$hhat ; $i++)
                             }
                         }
                         
-                        &getrs(@at1, @at2, @at3, @at4, $det);
+                        getrs(@at1, @at2, @at3, @at4, $det);
                         if ($det < 1)
                         {
                             #printf "Clockwise.\n";
@@ -1287,20 +1550,22 @@ for ($i=1 ; $i <=$hhat ; $i++)
         $hmat[6][$i] = sprintf("H   ");     #special case for amide H
         $hmat[20][$i]=1;
     }
+    
     if ($hmat[2][$i] == 1 && $nterm == 1)
     {
         if ($allnh == 1)
         {
             $hmat[6][$i] = sprintf("H   ");     #special case for amide H
         }else{
-            $hmat[6][$i] = sprintf("H%i  "), $hmat[21][$i];     #special case for amide H
+            $hmat[6][$i] = sprintf("H%i  ", $hmat[21][$i]);     #special case for amide H
         }
         $hmat[20][$i]=1;
+        #printf "Yab. %s %i %i\n", $hmat[6][$i], $hmat[1][$i], $allnh;
     }
 }
 for ($i=1 ; $i <=$hhat ; $i++)        # get pseudoatoms
 {
-            #printf "%s.\n", $hmat[6][$i];
+           # printf "%i %s %i\n", $hmat[1][$i], $hmat[2][$i], $hmat[20][$i];
 }
 ##############   CODE FOR PRINTING HYDROGENS END  #################
 
@@ -1317,6 +1582,7 @@ for ($i=1 ; $i <=$numlin ; $i++)        #   print pseudo
         {
             $l++;
             $qmat[1][$l]=$fields[0];
+            $qmat[2][$l]=0;
             $qmat[3][$l]=0;
             $qmat[4][$l]=$fields[12];       # QQ field
 
@@ -1324,7 +1590,20 @@ for ($i=1 ; $i <=$numlin ; $i++)        #   print pseudo
              {
                 if($hmat[7][$k] == $fields[0])
                 {
-                    $qmat[2][$l]=$hmat[2][$k];         # associated carbon
+                    if ($qmat[2][$l] == 0)              # not first carbon
+                    {
+                        $lowchain = $hmat[20][$k];
+                        $qmat[2][$l]=$hmat[2][$k];         # associated carbon
+                    }else{
+                        if ($hmat[20][$k] < $lowchain)  # pick carbon with lowest chain
+                        {
+                            $qmat[2][$l]=$hmat[2][$k];         # associated carbon
+                        }
+                    }
+                    $qmat[20][$l]=$hmat[20][$k];          #same chain, used later for printing
+#                    printf "id q %i id c %i chain h %i id h %i k %i\n", $qmat[1][$l], $qmat[2][$l], $qmat[20][$k], $hmat[1][$k], $k ;
+#                    printf "Yip %i %i %i.\n", $hmat[1][$k], $qmat[1][$l], $qmat[2][$l];
+
                     if ($hmat[8][$k] == 1)
                     {
                         $qmat[3][$l]=1;                 # dealing with QR
@@ -1346,32 +1625,38 @@ for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
         {
             $qmat[5][$i]=1;
             $qmat[6][$i]=$qmat[2][$j];      #naming carbon
+            $qmat[20][$i]=$qmat[20][$j];          #same chain, used later for printing
+
             if ($qmat[3][$j] == 1)
             {
                 $qmat[7][$i]=1;
             }
         }     # this is a QQ or QR
     }
+    #printf "Yip %i %i %i.\n", $qmat[1][$i], $qmat[6][$i], $qmat[2][$i];
+
 }
 
 for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
 {
     for ($k=1 ; $k < $nhat ; $k++)
     {
-        $qmat[20][$i]=$lmat[8][$k];          #same chain, used later for printing
+
 
         if ($lmat[1][$k] == $qmat[2][$i] && $qmat[5][$i] == 0)      # not a QQ or QR
         {
             if ($lmat[8][$k] == 1 && $c_ch_at[$lmat[11][$k]] == 1)
             {
                     $qmat[8][$i] = sprintf("Q%s  ", $gnam[$lmat[11][$k]]);
-            }elsif ($c_ch_at[$lmat[11][$k]] > 1 && $lmat[16][$k] == 1)      # if more than 1 chain but only 1 hydrogen on this carbon, then you don't need specifier.
+            }elsif ($c_ch_at[$lmat[11][$k]] == 2 && $lmat[16][$k] == 1)      # if 2 chains but only 1 hydrogen on this carbon, then you don't need specifier.
             {
                     $qmat[8][$i] =sprintf("Q%s  ", $gnam[$lmat[11][$k]]);
             }else{
                     $qmat[8][$i] = sprintf("Q%s%i ", $gnam[$lmat[11][$k]], $lmat[8][$k]);
+               #printf "Q%s%i \n", $gnam[$lmat[11][$k]], $lmat[8][$k]
             }
         }
+
         if ($lmat[1][$k] == $qmat[6][$i] && $qmat[5][$i] > 0 && $qmat[7][$i] == 0)      # QQ
         {
             $qmat[8][$i] = sprintf("QQ%s ", $gnam[$lmat[11][$k]]);
@@ -1380,16 +1665,21 @@ for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
         if ($lmat[1][$k] == $qmat[6][$i] && $qmat[5][$i] > 0 && $qmat[7][$i] == 1)      # QR
         {
             #IF FIELDS 2 IS QR THEN JUST OVERWRITE QMAT WITH THE QR stuff.
-            $qmat[8][$i] = sprintf("QR%s  ");
+            $qmat[8][$i] = sprintf("QR  ");
 
         }
     }
-            #printf "%i %i %i %i %i\n", $qmat[1][$i], $qmat[2][$i], $qmat[3][$i], $qmat[4][$i], $qmat[7][$i];
+    if (1 == $qmat[2][$i] && $qmat[5][$i] == 0)      # not a QQ or QR
+    {
+        #printf "nterm %i\n", $qmat[1][$i] ;
+        $qmat[8][$i] = sprintf("QHN ");
+    }
+            #printf "%i %i %i %i %i\n", $qmat[1][$i], $qmat[2][$i], $qmat[20][$i], $qmat[4][$i], $qmat[7][$i];
 }
-for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
-{
-            #printf "%s.\n", $qmat[8][$i];
-}
+#for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
+#{
+#            printf "%i %s %i\n", $qmat[1][$i], $qmat[8][$i], $qmat[20][$i];
+#}
 
 
 
@@ -1449,7 +1739,7 @@ for ($i=1 ; $i <=$numlin ; $i++)
              {
               substr($fil_c[$i],5,4)=$lmat[13][$pid];
              }else{
-              substr($fil_c[$i],5,3)=$lmat[13][$pid];
+              substr($fil_c[$i],5,4)=$lmat[13][$pid];
              }
             }
             printf OUT "%s\n",$fil_c[$i];
@@ -1461,15 +1751,18 @@ for ($i=1 ; $i <=$numlin ; $i++)
                 printf OUT2 "%s %s\n", substr($fil_c[$i],5,4), $hmat[6][$hid];
              substr($fil_c[$i],5,4)=$hmat[6][$hid];
             }
+            #printf "%s\n %i %i %i\n", $fil_c[$i], $hmat[20][$hid], $hmat[6][$hid], $hid;
             printf OUT "%s\n",$fil_c[$i];
         }elsif ($qflag == 1)
         {
-            if ($qmat[20][$qid] > 0)
+            if ($qmat[20][$qid] > 0 && $qmat[7][$qid] != 1)     # don't change QR
             {
-                printf OUT2 "%s %s\n", substr($fil_c[$i],5,4), $qmat[8][$qid];
-
+             #printf "%s\n %i %s %i\n", $fil_c[$i], $qmat[20][$qid], $qmat[8][$qid], $qid;
+             printf OUT2 "%s %s\n", substr($fil_c[$i],5,4), $qmat[8][$qid];
              substr($fil_c[$i],5,4)=$qmat[8][$qid];
             }
+            #printf "%s\n %i %i %i\n", $fil_c[$i], $qmat[20][$qid], $qmat[7][$qid], $qid;
+
             printf OUT "%s\n",$fil_c[$i];
         }else{
             printf OUT "%s\n",$fil_c[$i];
@@ -1552,7 +1845,307 @@ $det = $A11*$A22*$A33*$A44 + $A11*$A23*$A34*$A42 + $A11*$A24*$A32*$A43
       +$A14*$A23*$A32*$A41 + $A13*$A22*$A34*$A41 + $A12*$A24*$A33*$A41;
 }
 
-exit;
+
+sub sub_priority
+{
+#printf "insub %i %i\n", $lmat[1][1], $at_ca;
+
+    ################ Check priority of hits and sort based on hit #####################
+    ###########      Check priority of atom itself.                 ######## needs to be done separately as it is not part of the bond_list.
+                
+                for ($p = 1 ; $p <= $addchain ; $p++)
+                {
+                    $x=0;
+                    $i2 = $fpr[$p];
+                    $pr_mat[$p][$x] =  $lmat[10][$i2];
+                    for ($x = 1; $x < $nhat ; $x++)         #### SORTS THE PRIORITIES AT EACH BOND DISTANCE SO THAT THE ATOM WITH THE HIGHEST PRIORITY IS ON TOP OF PR_MAT
+                    {
+                        $pr_mat[$p][$x] =  0;
+                        if ($bond_lst_l[$x][$i2] > 0)
+                        {
+
+                            $i3             = $bond_list_ptr[$x][$i2][1];
+                            $maxp           = $lmat[10][$i3];                              # the first entry
+                            $pr_mat[$p][$x] = $lmat[10][$i3];
+
+                            for ($j=1 ; $j <= $bond_lst_l[$x][$i2] ; $j++)       # how many entries in x-bond list - go through each
+                            {
+                                $i3=$bond_list_ptr[$x][$i2][$j];
+                                if ($lmat[10][$i3] > $maxp )
+                                {
+                                    $pr_mat[$p][$x] = $lmat[10][$i3];
+                                    $maxp           = $lmat[10][$i3];
+                                }
+                            }
+                           # printf "step 1: Atom i: %i Bonds away: %i Priority: %i\n", $lmat[1][$fpr[$p]], $x, $maxp, ;
+
+                        }
+                    }
+                    $fpr_i[$i]=0;
+                }
+#                                            for ($p = 1 ; $p <= $addchain ; $p++)
+#                                            {
+#                        #                            printf "Atom i: %i Bonds away: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p]], $x, $pr_mat[$p][$x], $p;
+#                                                    printf "stuff3 A i: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p]], $cord[$p], $p;
+#                                                    #if ($pr_mat[$p][$x] == 0) {printf "should exit here saying that assignment is arbitrary\n"};
+#                                            }
+                for ($p = 1 ; $p <= $addchain-1 ; $p++)
+                {
+                    for ($p2 = 1+$p ; $p2 <= $addchain ; $p2++)
+                    {
+###     STEP 1: ##########  FIRST DETERMINE PRIORITY OF SELF ###############    IF PRIORITY OF SELF IS HIGHER/LOWER THEN ORDER CHAINS AND MOVE TO NEXT CHAIN
+                        #printf "Self Atom i: %i %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p]],$lmat[1][$fpr[$p2]], $pr_mat[$p][0], $pr_mat[$p2][0];
+
+                        if ($pr_mat[$p2][0] != $pr_mat[$p][0])
+                        {
+			#	printf "swap1\n";
+                            if ($pr_mat[$p2][0] > $pr_mat[$p][0])
+                            {
+			#	printf "swap2\n";
+                                # $temp_ch            = $cord[$p];
+                                # $cord[$p]           = $cord[$p2];
+                                # $cord[$p2]          = $temp_ch;
+                                $temp_fp            = $fpr[$p];
+                                $fpr[$p]            = $fpr[$p2];
+                                $fpr[$p2]           = $temp_fp;
+                                
+                                for ($x2 = 0; $x2 < $nhat ; $x2++)
+                                {
+                                    $temp_val           = $pr_mat[$p][$x2];
+                                    $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
+                                    $pr_mat[$p2][$x2]   = $temp_val;
+                                }
+                            }
+                            $ed=1;
+                                next;
+                        }
+###     STEP 2: ########## IF SELF CANNOT DISTINGUISH PRIORITY  EVALUATE ALL CONNECTED ATOMS AT EACH POSITION ##############
+                        for ($x = 1; $x < $nhat ; $x++)
+                        {
+                            #printf "Atom i: %i Bonds away: %i Priority: %i chain: %i, longest:L %i\n", $lmat[1][$fpr[$p]], $x, $pr_mat[$p][$x], $p, $longest;
+                            #printf "CF A i: %i Bonds away: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p2]], $x, $pr_mat[$p2][$x], $p2;
+                            #if ($pr_mat[$p][$x] == 0) {printf "should exit here saying that assignment is arbitrary\n"};
+                            $i2=$fpr[$p];
+                            $i22=$fpr[$p2];
+                            $fine=0;
+                            $longest = $bond_lst_l[$x][$i2];
+                            if ($bond_lst_l[$x][$i2] < $bond_lst_l[$x][$i22] ) {$longest = $bond_lst_l[$x][$i22]};
+                            #printf "ll %i\n",$longest;
+
+###     SECOND DETERMINE PRIORTY TO ALL CONNECTED ATOMS
+
+                            if ( ($pr_mat[$p2][$x] == $pr_mat[$p][$x]) && ($longest > 1))        ####### IF THE ATOM WITH THE HIGHEST PRIORITY X BONDS AWAY IS NOT DIFFERENT
+                            {
+                                #printf "Current mess.\n";
+                                # MAKE 2 DUMMY LISTS - DL1, DL2, INITIALISE LISTS TO SAME LENGTH
+                                $dll = $bond_lst_l[$x][$i22];
+                                if ( $bond_lst_l[$x][$i2] > $bond_lst_l[$x][$i22] ){ $dll = $bond_lst_l[$x][$i2]};
+                                
+                                for ($dj = 0; $dj <= $nhat ; $dj++)     # sort will reorder everythign in this array, so it must be 0 for all possible length - alternatively if the sort function is truncated it would also work
+                                {
+                                    $dl1[$dj]=0;
+                                    $dl2[$dj]=0;
+                                }
+       #                        FILL DUMMY LIST
+                                for ($j=1 ; $j <= $bond_lst_l[$x][$i2] ; $j++)       # how many entries in x-bond list - go through each
+                                {
+                                    $i3=$bond_list_ptr[$x][$i2][$j];
+                                    #printf"Blind luck  %i %i %i %i\n",   $lmat[1][$i3], $lmat[10][$i3], $longest, $dll;
+                                    $dl1[$j]=$lmat[10][$i3];
+                                }
+                                for ($j2=1 ; $j2 <= $bond_lst_l[$x][$i22] ; $j2++)       # how many entries in x-bond list - go through each
+                                {
+                                    $i4=$bond_list_ptr[$x][$i22][$j2];
+                                    #printf"Blind2 luck %i %i\n",   $lmat[1][$i4], $lmat[10][$i4];
+                                    $dl2[$j2]=$lmat[10][$i4];
+                                }
+    #                           SORT DUMMY LISTS
+                                @dl1s = sort { $b <=> $a } @dl1;
+                                @dl2s = sort { $b <=> $a } @dl2;
+    #                           COMPARE DUMMY LISTS - IF THERE IS A WINNER RECORD THIS AND NOTE THAT THERE WAS A WINNER IN VARIABLE $FINE=1 AND EXIT
+                                $fine=0;
+                                for ($dj = 0; $dj < $dll ; $dj++)
+                                {
+                                    #printf "Comparing %i %i.\n", $dl1s[$dj] , $dl2s[$dj];
+
+                                    if ($dl1s[$dj] > $dl2s[$dj])
+                                    {
+                                     #   printf "i2 %i %i wins over %i. \n", $lmat[1][$i2], $dl1s[$dj] , $dl2s[$dj];
+                                        $ed=1;
+                                        $fine=1;
+                                        last;
+                                        
+                                    }
+                                    if ($dl1s[$dj] < $dl2s[$dj])
+                                    {
+
+                                      #  printf "i22 %i %i wins over %i. %i %i\n", $lmat[1][$i22], $dl2s[$dj] , $dl1s[$dj], $p2, $p;
+                                        $ed=1;
+
+                                       # $temp_ch            = $cord[$p];
+                                       # $cord[$p]           = $cord[$p2];
+                                       # $cord[$p2]          = $temp_ch;
+                                        $temp_fp            = $fpr[$p];
+                                        $fpr[$p]            = $fpr[$p2];
+                                        $fpr[$p2]           = $temp_fp;
+
+                                        for ($x2 = 0; $x2 < $nhat ; $x2++)
+                                        {
+                                            $temp_val           = $pr_mat[$p][$x2];
+                                            $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
+                                            $pr_mat[$p2][$x2]   = $temp_val;
+                                        }
+                                        $fine=1;
+
+                                        last;
+                                    }
+                                }
+                                if ($fine==1) {last} ;  # no need to keep looking at this bond for current p and p2 as it is resolved above
+    
+                            }
+                            
+                            if($pr_mat[$p2][$x] != $pr_mat[$p][$x])
+                            {
+                                $ed=1;
+
+                                #printf "Second. \n";
+                                if ($pr_mat[$p2][$x] > $pr_mat[$p][$x])
+                                {
+                                    # $temp_ch            = $cord[$p];
+                                    # $cord[$p]           = $cord[$p2];
+                                    # $cord[$p2]          = $temp_ch;
+                                    $temp_fp            = $fpr[$p];
+                                    $fpr[$p]            = $fpr[$p2];
+                                    $fpr[$p2]           = $temp_fp;
+                                    
+                                    for ($x2 = 0; $x2 < $nhat ; $x2++)
+                                    {
+                                        $temp_val           = $pr_mat[$p][$x2];
+                                        $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
+                                        $pr_mat[$p2][$x2]   = $temp_val;
+                                    }
+                                }
+                                $fine=1;
+                                last;
+                            }
+
+
+                        }
+                        if ($fine==1) {next} ;  # no need to keep looking at this bond for current p and p2 as it is resolved above
+
+###     STEP 3: ########## IF SELF CANNOT DISTINGUISH PRIORITY  USE R/S RULE ##############
+                        if ($nors == 1) {next} ;
+                        #############   START R/S CIP RULE ###################
+                            #       printf "not resolved %i %i %i %i %i\n",  $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]], $lmat[1][$i], $lmat[9][$i], $bond_lst_l[1][$i] ;
+                            $found_4=0;
+                            if ($bond_lst_l[1][$i] == 4)  {$found_4=1} ;    # four heteroatoms
+                            if ($bond_lst_l[1][$i] == 3)                    # three heteroatoms
+                            {
+                                ########## get attached H
+                                for ($xi=1 ; $xi <=$numlin ; $xi++)        #   print hydrogens
+                                {
+                                    @fields = split (' ', $fil_c[$xi]);
+                                    if ($xi > $atstart)
+                                    {
+                                        if($fields[2] =~ 'H_')
+                                        {
+                                            if ($fields[8] == $lmat[1][$i])        # attached carbon
+                                            {
+                                                $found_4=1;
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                ##################
+                            }
+                            if ($found_4 == 1)
+                            {
+                                for ($xi=1 ; $xi <=$numlin ; $xi++)         #   print hydrogens
+                                {
+                                    @fields = split (' ', $fil_c[$xi]);
+                                    if ($xi > $atstart)
+                                    {
+                                        #printf "%i %f %f\n",  $fields[0], $fields[6], $fields[7];
+                                        
+                                        if($fields[0] == $lmat[1][$i])
+                                        {
+                                            @at4 = ($fields[5], $fields[6], $fields[7]);
+                                        }
+                                        if($fields[0] == $at_n && $lmat[9][$i] == 0)    # first nitrogen you hit - shoudl be 1.
+                                        {
+                                            @at3 = ($fields[5], $fields[6], $fields[7]);
+                                        }
+                                        
+                                        if($fields[0] == $lmat[9][$i] && $lmat[9][$i] > 0)
+                                        {
+                                            #print $lmat[9][$i] $fields0;
+                                            @at3 = ($fields[5], $fields[6], $fields[7]);
+                                        }
+                                        if($fields[0] == $lmat[1][$fpr[$p]])
+                                        {
+                                            @at1 = ($fields[5], $fields[6], $fields[7]);
+                                        }
+                                        if($fields[0] == $lmat[1][$fpr[$p2]])
+                                        {
+                                            @at2 = ($fields[5], $fields[6], $fields[7]);
+                                        }
+                                    }
+                                }
+                                
+                                getrs(@at1, @at2, @at3, @at4, $det);
+                                #printf "%f\n", $det;
+                                #printf "%f\n", $det;
+                                if ($det < 1)
+                                {
+                                    #printf "Clockwise. order is: %i %i. \n", $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]];
+                                    #$fine=1;
+                                    
+                                    #last;
+                                }
+                                if ($det > 1)
+                                {
+                                    #printf "Anti-clockwise. order is: %i %i. \n", $lmat[1][$fpr[$p2]],  $lmat[1][$fpr[$p]];
+                                    #$temp_ch            = $cord[$p];
+                                    #$cord[$p]           = $cord[$p2];
+                                    #$cord[$p2]          = $temp_ch;
+                                    $temp_fp            = $fpr[$p];
+                                    $fpr[$p]            = $fpr[$p2];
+                                    $fpr[$p2]           = $temp_fp;
+                                    
+                                    for ($x2 = 0; $x2 < $nhat ; $x2++)
+                                    {
+                                        $temp_val           = $pr_mat[$p][$x2];
+                                        $pr_mat[$p][$x2]    = $pr_mat[$p2][$x2];
+                                        $pr_mat[$p2][$x2]   = $temp_val;
+                                    }
+                                    # probably need to set fine=1
+                                    #$fine=1;
+                                    #last;
+                                }
+                                
+                            }
+                        ########### END R/S CIP RULE ##############
+                        
+                        
+                        
+#                                            for ($px = 1 ; $px <= $addchain ; $px++)
+#                                            {
+#                        #                            printf "Atom i: %i Bonds away: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p]], $x, $pr_mat[$p][$x], $p;
+#                                                    printf "stuff4 A i: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$px]], $cord[$px], $px;
+#                                                    #if ($pr_mat[$p][$x] == 0) {printf "should exit here saying that assignment is arbitrary\n"};
+#                                            }
+                    }
+                }
+#                        for ($px = 1 ; $px <= $addchain ; $px++)
+#                        {
+#    #                            printf "Atom i: %i Bonds away: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$p]], $x, $pr_mat[$p][$x], $p;
+#                                printf "stuff2 A i: %i Priority: %i chain: %i\n", $lmat[1][$fpr[$px]], $cord[$px], $px;
+#                                #if ($pr_mat[$p][$x] == 0) {printf "should exit here saying that assignment is arbitrary\n"};
+#                        }
+
+}
+
 
 
 

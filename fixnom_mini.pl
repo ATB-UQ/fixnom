@@ -13,7 +13,7 @@ GetOptions('ca=s' => \$ca,
 			);
 # -c C6 -x1 C7 -x2 N2
 #READ LIB FILE **************************
-open(LIB, $inputfile) || die "Error: Could not open input library file.\nUsage\n ./fixnom.pl -i input.lib -o output.lib -ca C3 -c C4 -n N1\n ";		# Open the input file
+open(LIB, $inputfile) || die "Error: Could not open input library file.\nUsage\n ./fixnom_mini.pl -i input.mol2 -o output.mol2 -ca <CA atom name> -c <C atom name> -n <N atom name>\n ";		# Open the input file
 @rlib = <LIB>;										# Read it into an array
 close(LIB);
 # ***********************

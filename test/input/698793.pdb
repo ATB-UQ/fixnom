@@ -1,0 +1,58 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N PKR     1       1.432  -1.101  -0.380  1.00  0.00           N  
+ATOM      2    H PKR     1       2.268  -1.525  -0.664  1.00  0.00           H  
+ATOM      3   CA PKR     1       0.288  -1.934  -0.066  1.00  0.00           C  
+ATOM      4   CB PKR     1      -0.923  -1.606  -0.996  1.00  0.00           C  
+ATOM      5   CG PKR     1      -1.534  -0.255  -0.757  1.00  0.00           C  
+ATOM      6  CD1 PKR     1      -0.981   0.976  -1.033  1.00  0.00           C  
+ATOM      7  NE1 PKR     1      -1.847   1.977  -0.646  1.00  0.00           N  
+ATOM      8  HE1 PKR     1      -1.667   2.965  -0.754  1.00  0.00           H  
+ATOM      9  HD1 PKR     1      -0.017   1.234  -1.452  1.00  0.00           H  
+ATOM     10  CD2 PKR     1      -2.825   0.004  -0.162  1.00  0.00           C  
+ATOM     11  CE2 PKR     1      -2.988   1.419  -0.110  1.00  0.00           C  
+ATOM     12  CZ2 PKR     1      -4.135   2.023   0.418  1.00  0.00           C  
+ATOM     13  HZ2 PKR     1      -4.241   3.104   0.448  1.00  0.00           H  
+ATOM     14  CE3 PKR     1      -3.860  -0.812   0.334  1.00  0.00           C  
+ATOM     15  CZ3 PKR     1      -4.997  -0.217   0.868  1.00  0.00           C  
+ATOM     16  CH2 PKR     1      -5.133   1.188   0.911  1.00  0.00           C  
+ATOM     17  HH2 PKR     1      -6.036   1.625   1.332  1.00  0.00           H  
+ATOM     18  HZ3 PKR     1      -5.798  -0.841   1.255  1.00  0.00           H  
+ATOM     19  HE3 PKR     1      -3.777  -1.896   0.302  1.00  0.00           H  
+ATOM     20  HB2 PKR     1      -1.684  -2.382  -0.852  1.00  0.00           H  
+ATOM     21  HB3 PKR     1      -0.573  -1.715  -2.031  1.00  0.00           H  
+ATOM     22   HA PKR     1       0.033  -1.729   0.976  1.00  0.00           H  
+ATOM     23    C PKR     1       0.661  -3.408  -0.261  1.00  0.00           C  
+ATOM     24    O PKR     1       1.424  -3.787  -1.123  1.00  0.00           O  
+ATOM     25  O01 PKR     1       0.032  -4.305   0.526  1.00  0.00           O  
+ATOM     26  H01 PKR     1      -0.485  -3.865   1.224  1.00  0.00           H  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   22   23                                       
+CONECT    4    3    5   20   21                                       
+CONECT    5    4    6    6   10                                       
+CONECT    6    5    5    7    9                                       
+CONECT    7    6    8   11                                            
+CONECT    8    7                                                      
+CONECT    9    6                                                      
+CONECT   10    5   11   11   14                                       
+CONECT   11    7   10   10   12                                       
+CONECT   12   11   13   16   16                                       
+CONECT   13   12                                                      
+CONECT   14   10   15   15   19                                       
+CONECT   15   14   14   16   18                                       
+CONECT   16   12   12   15   17                                       
+CONECT   17   16                                                      
+CONECT   18   15                                                      
+CONECT   19   14                                                      
+CONECT   20    4                                                      
+CONECT   21    4                                                      
+CONECT   22    3                                                      
+CONECT   23    3   24   24   25                                       
+CONECT   24   23   23                                                 
+CONECT   25   23   26                                                 
+CONECT   26   25                                                      
+MASTER        0    0    0    0    0    0    0    0   26    0   26    0
+END

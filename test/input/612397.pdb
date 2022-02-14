@@ -1,0 +1,68 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N OUI     1      -1.669  -0.891   0.827  1.00  0.00           N  
+ATOM      2    H OUI     1      -1.765  -0.581   1.752  1.00  0.00           H  
+ATOM      3   CA OUI     1      -0.890  -2.093   0.557  1.00  0.00           C  
+ATOM      4    C OUI     1      -0.374  -2.615   1.895  1.00  0.00           C  
+ATOM      5    O OUI     1      -0.288  -1.939   2.902  1.00  0.00           O  
+ATOM      6  O01 OUI     1       0.009  -3.896   1.815  1.00  0.00           O  
+ATOM      7  H01 OUI     1       0.365  -4.159   2.687  1.00  0.00           H  
+ATOM      8   HA OUI     1      -1.555  -2.844   0.122  1.00  0.00           H  
+ATOM      9  C07 OUI     1       0.273  -1.856  -0.407  1.00  0.00           C  
+ATOM     10  C06 OUI     1       0.264  -2.429  -1.682  1.00  0.00           C  
+ATOM     11  C05 OUI     1       1.308  -2.191  -2.577  1.00  0.00           C  
+ATOM     12  C04 OUI     1       2.371  -1.367  -2.207  1.00  0.00           C  
+ATOM     13  O02 OUI     1       3.386  -1.129  -3.083  1.00  0.00           O  
+ATOM     14  H02 OUI     1       4.016  -0.525  -2.648  1.00  0.00           H  
+ATOM     15  H11 OUI     1       1.305  -2.628  -3.571  1.00  0.00           H  
+ATOM     16  H12 OUI     1      -0.569  -3.056  -1.985  1.00  0.00           H  
+ATOM     17  C02 OUI     1       1.347  -1.038  -0.027  1.00  0.00           C  
+ATOM     18  H08 OUI     1       1.380  -0.587   0.960  1.00  0.00           H  
+ATOM     19  C03 OUI     1       2.379  -0.790  -0.924  1.00  0.00           C  
+ATOM     20  O03 OUI     1       3.510  -0.046  -0.628  1.00  0.00           O  
+ATOM     21  C08 OUI     1       3.411   1.071   0.200  1.00  0.00           C  
+ATOM     22  C09 OUI     1       2.411   2.030   0.022  1.00  0.00           C  
+ATOM     23  C10 OUI     1       2.392   3.150   0.856  1.00  0.00           C  
+ATOM     24  C11 OUI     1       3.365   3.316   1.845  1.00  0.00           C  
+ATOM     25  C12 OUI     1       4.369   2.356   1.996  1.00  0.00           C  
+ATOM     26  H15 OUI     1       5.132   2.479   2.760  1.00  0.00           H  
+ATOM     27  H10 OUI     1       3.344   4.189   2.491  1.00  0.00           H  
+ATOM     28  H09 OUI     1       1.614   3.897   0.724  1.00  0.00           H  
+ATOM     29  H14 OUI     1       1.661   1.900  -0.752  1.00  0.00           H  
+ATOM     30  C13 OUI     1       4.394   1.225   1.176  1.00  0.00           C  
+ATOM     31  H16 OUI     1       5.161   0.464   1.285  1.00  0.00           H  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4    8    9                                       
+CONECT    4    3    5    5    6                                       
+CONECT    5    4    4                                                 
+CONECT    6    4    7                                                 
+CONECT    7    6                                                      
+CONECT    8    3                                                      
+CONECT    9    3   10   10   17                                       
+CONECT   10    9    9   11   16                                       
+CONECT   11   10   12   12   15                                       
+CONECT   12   11   11   13   19                                       
+CONECT   13   12   14                                                 
+CONECT   14   13                                                      
+CONECT   15   11                                                      
+CONECT   16   10                                                      
+CONECT   17    9   18   19   19                                       
+CONECT   18   17                                                      
+CONECT   19   12   17   17   20                                       
+CONECT   20   19   21                                                 
+CONECT   21   20   22   22   30                                       
+CONECT   22   21   21   23   29                                       
+CONECT   23   22   24   24   28                                       
+CONECT   24   23   23   25   27                                       
+CONECT   25   24   26   30   30                                       
+CONECT   26   25                                                      
+CONECT   27   24                                                      
+CONECT   28   23                                                      
+CONECT   29   22                                                      
+CONECT   30   21   25   25   31                                       
+CONECT   31   30                                                      
+MASTER        0    0    0    0    0    0    0    0   31    0   31    0
+END

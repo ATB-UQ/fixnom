@@ -1,0 +1,24 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A11     1      -1.148  -0.009   0.139  1.00  0.00           N  
+ATOM      2    H A11     1      -1.110  -0.655   0.875  1.00  0.00           H  
+ATOM      3   CA A11     1       0.078   0.343  -0.561  1.00  0.00           C  
+ATOM      4   CB A11     1       0.354   1.788  -0.566  1.00  0.00           C  
+ATOM      5  C01 A11     1       0.621   2.966  -0.582  1.00  0.00           C  
+ATOM      6  H01 A11     1       0.846   4.011  -0.589  1.00  0.00           H  
+ATOM      7   HA A11     1      -0.003   0.003  -1.603  1.00  0.00           H  
+ATOM      8    C A11     1       1.229  -0.474   0.104  1.00  0.00           C  
+ATOM      9    O A11     1       1.000  -1.238   1.040  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4    7    8                                       
+CONECT    4    3    5    5    5                                       
+CONECT    5    4    4    4    6                                       
+CONECT    6    5                                                      
+CONECT    7    3                                                      
+CONECT    8    3    9    9                                            
+CONECT    9    8    8                                                 
+MASTER        0    0    0    0    0    0    0    0    9    0    9    0
+END

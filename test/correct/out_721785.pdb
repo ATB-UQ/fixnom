@@ -1,0 +1,64 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N DF9     1      -2.417  -0.151   0.535  1.00  0.00           N  
+ATOM      2    H DF9     1      -2.834  -0.906   0.999  1.00  0.00           H  
+ATOM      3   CA DF9     1      -1.036  -0.247   0.137  1.00  0.00           C  
+ATOM      4   CB DF9     1      -0.149   0.830   0.788  1.00  0.00           C  
+ATOM      5   CG DF9     1       1.192   0.913   0.092  1.00  0.00           C  
+ATOM      6   CD DF9     1       2.045   1.997   0.753  1.00  0.00           C  
+ATOM      7   NE DF9     1       3.376   2.090   0.196  1.00  0.00           N  
+ATOM      8   CZ DF9     1       4.086   3.316   0.428  1.00  0.00           C  
+ATOM      9  NH2 DF9     1       4.008   4.050   1.504  1.00  0.00           N  
+ATOM     10  HH2 DF9     1       3.326   3.774   2.177  1.00  0.00           H  
+ATOM     11  NH1 DF9     1       5.000   3.670  -0.661  1.00  0.00           N  
+ATOM     12  CT1 DF9     1       5.217   5.094  -0.812  1.00  0.00           C  
+ATOM     13 HT11 DF9     1       5.736   5.251  -1.795  1.00  0.00           H  
+ATOM     14 HT12 DF9     1       5.846   5.542   0.003  1.00  0.00           H  
+ATOM     15 HT13 DF9     1       4.228   5.620  -0.833  1.00  0.00           H  
+ATOM     16  CT3 DF9     1       6.231   2.909  -0.606  1.00  0.00           C  
+ATOM     17 HT31 DF9     1       6.801   3.105  -1.553  1.00  0.00           H  
+ATOM     18 HT32 DF9     1       5.996   1.815  -0.546  1.00  0.00           H  
+ATOM     19 HT33 DF9     1       6.881   3.186   0.268  1.00  0.00           H  
+ATOM     20   HE DF9     1       3.441   1.746  -0.740  1.00  0.00           H  
+ATOM     21  HD3 DF9     1       2.152   1.753   1.850  1.00  0.00           H  
+ATOM     22  HD2 DF9     1       1.490   2.978   0.679  1.00  0.00           H  
+ATOM     23  HG3 DF9     1       1.043   1.154  -0.994  1.00  0.00           H  
+ATOM     24  HG2 DF9     1       1.717  -0.076   0.149  1.00  0.00           H  
+ATOM     25  HB3 DF9     1      -0.006   0.589   1.875  1.00  0.00           H  
+ATOM     26  HB2 DF9     1      -0.664   1.825   0.723  1.00  0.00           H  
+ATOM     27   HA DF9     1      -0.991  -0.121  -0.988  1.00  0.00           H  
+ATOM     28    C DF9     1      -0.467  -1.628   0.561  1.00  0.00           C  
+ATOM     29    O DF9     1      -1.174  -2.448   1.145  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   27   28                                       
+CONECT    4    3    5   25   26                                       
+CONECT    5    4    6   23   24                                       
+CONECT    6    5    7   21   22                                       
+CONECT    7    6    8   20                                            
+CONECT    8    7    9    9   11                                       
+CONECT    9    8    8   10                                            
+CONECT   10    9                                                      
+CONECT   11    8   12   16                                            
+CONECT   12   11   13   14   15                                       
+CONECT   13   12                                                      
+CONECT   14   12                                                      
+CONECT   15   12                                                      
+CONECT   16   11   17   18   19                                       
+CONECT   17   16                                                      
+CONECT   18   16                                                      
+CONECT   19   16                                                      
+CONECT   20    7                                                      
+CONECT   21    6                                                      
+CONECT   22    6                                                      
+CONECT   23    5                                                      
+CONECT   24    5                                                      
+CONECT   25    4                                                      
+CONECT   26    4                                                      
+CONECT   27    3                                                      
+CONECT   28    3   29   29                                            
+CONECT   29   28   28                                                 
+MASTER        0    0    0    0    0    0    0    0   29    0   29    0
+END

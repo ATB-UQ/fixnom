@@ -1,0 +1,58 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N EJ1     1      -2.141  -0.205   0.505  1.00  0.00           N  
+ATOM      2    H EJ1     1      -2.436  -0.951   1.067  1.00  0.00           H  
+ATOM      3   CA EJ1     1      -0.785  -0.186   0.017  1.00  0.00           C  
+ATOM      4   CB EJ1     1       0.004   1.047   0.494  1.00  0.00           C  
+ATOM      5   CG EJ1     1       1.298   1.188  -0.279  1.00  0.00           C  
+ATOM      6   CD EJ1     1       2.010   2.472   0.155  1.00  0.00           C  
+ATOM      7   NE EJ1     1       3.316   2.604  -0.459  1.00  0.00           N  
+ATOM      8   CZ EJ1     1       4.033   3.830  -0.229  1.00  0.00           C  
+ATOM      9  NH1 EJ1     1       3.569   4.721   0.625  1.00  0.00           N  
+ATOM     10  C01 EJ1     1       4.322   5.880   0.964  1.00  0.00           C  
+ATOM     11  H01 EJ1     1       5.326   5.642   1.414  1.00  0.00           H  
+ATOM     12  H02 EJ1     1       3.719   6.436   1.732  1.00  0.00           H  
+ATOM     13  H03 EJ1     1       4.492   6.563   0.087  1.00  0.00           H  
+ATOM     14  NH2 EJ1     1       5.237   3.974  -0.993  1.00  0.00           N  
+ATOM     15 HH21 EJ1     1       5.606   3.126  -1.366  1.00  0.00           H  
+ATOM     16 HH22 EJ1     1       5.937   4.506  -0.521  1.00  0.00           H  
+ATOM     17   HE EJ1     1       3.296   2.362  -1.432  1.00  0.00           H  
+ATOM     18  HD2 EJ1     1       2.159   2.453   1.272  1.00  0.00           H  
+ATOM     19  HD3 EJ1     1       1.338   3.349  -0.081  1.00  0.00           H  
+ATOM     20  HG2 EJ1     1       1.083   1.223  -1.379  1.00  0.00           H  
+ATOM     21  HG3 EJ1     1       1.956   0.299  -0.091  1.00  0.00           H  
+ATOM     22  HB2 EJ1     1       0.219   0.953   1.591  1.00  0.00           H  
+ATOM     23  HB3 EJ1     1      -0.621   1.967   0.346  1.00  0.00           H  
+ATOM     24   HA EJ1     1      -0.826  -0.174  -1.115  1.00  0.00           H  
+ATOM     25    C EJ1     1      -0.029  -1.444   0.524  1.00  0.00           C  
+ATOM     26    O EJ1     1      -0.594  -2.275   1.233  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   24   25                                       
+CONECT    4    3    5   22   23                                       
+CONECT    5    4    6   20   21                                       
+CONECT    6    5    7   18   19                                       
+CONECT    7    6    8   17                                            
+CONECT    8    7    9   14   14                                       
+CONECT    9    8   10                                                 
+CONECT   10    9   11   12   13                                       
+CONECT   11   10                                                      
+CONECT   12   10                                                      
+CONECT   13   10                                                      
+CONECT   14    8    8   15   16                                       
+CONECT   15   14                                                      
+CONECT   16   14                                                      
+CONECT   17    7                                                      
+CONECT   18    6                                                      
+CONECT   19    6                                                      
+CONECT   20    5                                                      
+CONECT   21    5                                                      
+CONECT   22    4                                                      
+CONECT   23    4                                                      
+CONECT   24    3                                                      
+CONECT   25    3   26   26                                            
+CONECT   26   25   25                                                 
+MASTER        0    0    0    0    0    0    0    0   26    0   26    0
+END

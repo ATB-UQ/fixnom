@@ -1,0 +1,58 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A37     1       1.166   1.362   0.037  1.00  0.00           N  
+ATOM      2    H A37     1       1.115   1.484   1.008  1.00  0.00           H  
+ATOM      3   CA A37     1      -0.036   1.071  -0.698  1.00  0.00           C  
+ATOM      4   CB A37     1       0.025  -0.251  -1.481  1.00  0.00           C  
+ATOM      5  C01 A37     1       0.373  -1.445  -0.620  1.00  0.00           C  
+ATOM      6  C02 A37     1       0.122  -2.741  -1.370  1.00  0.00           C  
+ATOM      7  C07 A37     1       0.544  -3.926  -0.575  1.00  0.00           C  
+ATOM      8  C08 A37     1       1.905  -4.211  -0.405  1.00  0.00           C  
+ATOM      9  C03 A37     1       2.304  -5.324   0.332  1.00  0.00           C  
+ATOM     10  H09 A37     1       3.375  -5.540   0.461  1.00  0.00           H  
+ATOM     11  H08 A37     1       2.660  -3.549  -0.857  1.00  0.00           H  
+ATOM     12  C06 A37     1      -0.409  -4.772   0.002  1.00  0.00           C  
+ATOM     13  C05 A37     1      -0.008  -5.886   0.738  1.00  0.00           C  
+ATOM     14  C04 A37     1       1.349  -6.163   0.905  1.00  0.00           C  
+ATOM     15  H10 A37     1       1.664  -7.042   1.486  1.00  0.00           H  
+ATOM     16  H11 A37     1      -0.764  -6.546   1.188  1.00  0.00           H  
+ATOM     17  H12 A37     1      -1.481  -4.557  -0.127  1.00  0.00           H  
+ATOM     18  H02 A37     1      -0.969  -2.817  -1.626  1.00  0.00           H  
+ATOM     19  H05 A37     1       0.690  -2.724  -2.340  1.00  0.00           H  
+ATOM     20  H01 A37     1       1.454  -1.401  -0.319  1.00  0.00           H  
+ATOM     21  H03 A37     1      -0.237  -1.427   0.322  1.00  0.00           H  
+ATOM     22  HB1 A37     1       0.784  -0.146  -2.301  1.00  0.00           H  
+ATOM     23  HB3 A37     1      -0.974  -0.407  -1.967  1.00  0.00           H  
+ATOM     24   HA A37     1      -0.189   1.911  -1.446  1.00  0.00           H  
+ATOM     25    C A37     1      -1.264   1.001   0.249  1.00  0.00           C  
+ATOM     26    O A37     1      -1.137   1.183   1.459  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   24   25                                       
+CONECT    4    3    5   22   23                                       
+CONECT    5    4    6   20   21                                       
+CONECT    6    5    7   18   19                                       
+CONECT    7    6    8    8   12                                       
+CONECT    8    7    7    9   11                                       
+CONECT    9    8   10   14   14                                       
+CONECT   10    9                                                      
+CONECT   11    8                                                      
+CONECT   12    7   13   13   17                                       
+CONECT   13   12   12   14   16                                       
+CONECT   14    9    9   13   15                                       
+CONECT   15   14                                                      
+CONECT   16   13                                                      
+CONECT   17   12                                                      
+CONECT   18    6                                                      
+CONECT   19    6                                                      
+CONECT   20    5                                                      
+CONECT   21    5                                                      
+CONECT   22    4                                                      
+CONECT   23    4                                                      
+CONECT   24    3                                                      
+CONECT   25    3   26   26                                            
+CONECT   26   25   25                                                 
+MASTER        0    0    0    0    0    0    0    0   26    0   26    0
+END

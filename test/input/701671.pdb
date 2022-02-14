@@ -1,0 +1,52 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A0U     1      -2.515   1.989  -0.566  1.00  0.00           N  
+ATOM      2  C01 A0U     1      -2.040   2.982   0.403  1.00  0.00           C  
+ATOM      3  H02 A0U     1      -2.299   2.668   1.420  1.00  0.00           H  
+ATOM      4  H03 A0U     1      -2.564   3.923   0.209  1.00  0.00           H  
+ATOM      5  H04 A0U     1      -0.958   3.184   0.371  1.00  0.00           H  
+ATOM      6  H01 A0U     1      -2.373   2.356  -1.506  1.00  0.00           H  
+ATOM      7   CA A0U     1      -1.919   0.639  -0.510  1.00  0.00           C  
+ATOM      8   CB A0U     1      -2.307  -0.099   0.782  1.00  0.00           C  
+ATOM      9   CG A0U     1      -1.943  -1.600   0.828  1.00  0.00           C  
+ATOM     10  CD1 A0U     1      -2.277  -2.177   2.212  1.00  0.00           C  
+ATOM     11 HD11 A0U     1      -1.751  -1.638   3.010  1.00  0.00           H  
+ATOM     12 HD12 A0U     1      -3.354  -2.110   2.416  1.00  0.00           H  
+ATOM     13 HD13 A0U     1      -1.990  -3.234   2.275  1.00  0.00           H  
+ATOM     14  CD2 A0U     1      -2.640  -2.411  -0.277  1.00  0.00           C  
+ATOM     15 HD21 A0U     1      -3.731  -2.298  -0.217  1.00  0.00           H  
+ATOM     16 HD22 A0U     1      -2.324  -2.106  -1.281  1.00  0.00           H  
+ATOM     17 HD23 A0U     1      -2.411  -3.478  -0.173  1.00  0.00           H  
+ATOM     18   HG A0U     1      -0.856  -1.697   0.683  1.00  0.00           H  
+ATOM     19  HB2 A0U     1      -3.393   0.015   0.896  1.00  0.00           H  
+ATOM     20  HB3 A0U     1      -1.865   0.396   1.658  1.00  0.00           H  
+ATOM     21   HA A0U     1      -2.357   0.102  -1.357  1.00  0.00           H  
+ATOM     22    C A0U     1      -0.408   0.651  -0.830  1.00  0.00           C  
+ATOM     23    O A0U     1       0.172   1.703  -1.094  1.00  0.00           O  
+CONECT    1    2    6    7                                            
+CONECT    2    1    3    4    5                                       
+CONECT    3    2                                                      
+CONECT    4    2                                                      
+CONECT    5    2                                                      
+CONECT    6    1                                                      
+CONECT    7    1    8   21   22                                       
+CONECT    8    7    9   19   20                                       
+CONECT    9    8   10   14   18                                       
+CONECT   10    9   11   12   13                                       
+CONECT   11   10                                                      
+CONECT   12   10                                                      
+CONECT   13   10                                                      
+CONECT   14    9   15   16   17                                       
+CONECT   15   14                                                      
+CONECT   16   14                                                      
+CONECT   17   14                                                      
+CONECT   18    9                                                      
+CONECT   19    8                                                      
+CONECT   20    8                                                      
+CONECT   21    7                                                      
+CONECT   22    7   23   23                                            
+CONECT   23   22   22                                                 
+MASTER        0    0    0    0    0    0    0    0   23    0   23    0
+END

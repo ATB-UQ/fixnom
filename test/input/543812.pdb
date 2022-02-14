@@ -1,0 +1,36 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N CP6     1      -0.189   0.142  -0.135  1.00  0.00           N  
+ATOM      2    H CP6     1      -0.139   0.194   0.842  1.00  0.00           H  
+ATOM      3   CA CP6     1      -1.466  -0.139  -0.764  1.00  0.00           C  
+ATOM      4   CB CP6     1      -1.411  -1.393  -1.660  1.00  0.00           C  
+ATOM      5  HB1 CP6     1      -0.661  -1.249  -2.444  1.00  0.00           H  
+ATOM      6  HB2 CP6     1      -1.137  -2.277  -1.074  1.00  0.00           H  
+ATOM      7  HB3 CP6     1      -2.383  -1.574  -2.129  1.00  0.00           H  
+ATOM      8   HA CP6     1      -1.718   0.732  -1.374  1.00  0.00           H  
+ATOM      9    C CP6     1      -2.543  -0.308   0.308  1.00  0.00           C  
+ATOM     10    O CP6     1      -2.330  -0.612   1.465  1.00  0.00           O  
+ATOM     11  O01 CP6     1      -3.766  -0.117  -0.210  1.00  0.00           O  
+ATOM     12  C02 CP6     1      -4.877  -0.296   0.697  1.00  0.00           C  
+ATOM     13  H01 CP6     1      -4.839   0.456   1.488  1.00  0.00           H  
+ATOM     14  H02 CP6     1      -4.851  -1.295   1.138  1.00  0.00           H  
+ATOM     15  H03 CP6     1      -5.772  -0.166   0.089  1.00  0.00           H  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4    8    9                                       
+CONECT    4    3    5    6    7                                       
+CONECT    5    4                                                      
+CONECT    6    4                                                      
+CONECT    7    4                                                      
+CONECT    8    3                                                      
+CONECT    9    3   10   10   11                                       
+CONECT   10    9    9                                                 
+CONECT   11    9   12                                                 
+CONECT   12   11   13   14   15                                       
+CONECT   13   12                                                      
+CONECT   14   12                                                      
+CONECT   15   12                                                      
+MASTER        0    0    0    0    0    0    0    0   15    0   15    0
+END

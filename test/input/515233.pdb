@@ -1,0 +1,78 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A8Z     1      -2.915   0.599  -0.165  1.00  0.00           N  
+ATOM      2    H A8Z     1      -2.869   0.419  -1.127  1.00  0.00           H  
+ATOM      3   CA A8Z     1      -1.925   1.450   0.438  1.00  0.00           C  
+ATOM      4   CB A8Z     1      -1.164   0.766   1.593  1.00  0.00           C  
+ATOM      5  C01 A8Z     1      -0.511  -0.517   1.224  1.00  0.00           C  
+ATOM      6  C02 A8Z     1      -1.258  -1.700   1.171  1.00  0.00           C  
+ATOM      7  C03 A8Z     1      -0.648  -2.902   0.829  1.00  0.00           C  
+ATOM      8  H03 A8Z     1      -1.238  -3.829   0.784  1.00  0.00           H  
+ATOM      9  H08 A8Z     1      -2.334  -1.685   1.407  1.00  0.00           H  
+ATOM     10  C06 A8Z     1       0.862  -0.561   0.961  1.00  0.00           C  
+ATOM     11  C05 A8Z     1       1.508  -1.757   0.622  1.00  0.00           C  
+ATOM     12  C07 A8Z     1       2.951  -1.761   0.382  1.00  0.00           C  
+ATOM     13  C08 A8Z     1       3.483  -2.124  -0.873  1.00  0.00           C  
+ATOM     14  O02 A8Z     1       2.714  -2.500  -1.946  1.00  0.00           O  
+ATOM     15  H02 A8Z     1       1.807  -2.647  -1.640  1.00  0.00           H  
+ATOM     16  C09 A8Z     1       4.865  -2.097  -1.121  1.00  0.00           C  
+ATOM     17  H09 A8Z     1       5.244  -2.380  -2.111  1.00  0.00           H  
+ATOM     18  C12 A8Z     1       3.844  -1.388   1.408  1.00  0.00           C  
+ATOM     19  C11 A8Z     1       5.219  -1.362   1.177  1.00  0.00           C  
+ATOM     20  C10 A8Z     1       5.719  -1.711  -0.087  1.00  0.00           C  
+ATOM     21  O03 A8Z     1       7.085  -1.652  -0.245  1.00  0.00           O  
+ATOM     22  H04 A8Z     1       7.294  -1.953  -1.141  1.00  0.00           H  
+ATOM     23  H14 A8Z     1       5.919  -1.074   1.974  1.00  0.00           H  
+ATOM     24  C13 A8Z     1       3.344  -1.009   2.753  1.00  0.00           C  
+ATOM     25  H05 A8Z     1       3.081   0.080   2.765  1.00  0.00           H  
+ATOM     26  H07 A8Z     1       4.124  -1.190   3.533  1.00  0.00           H  
+ATOM     27  H10 A8Z     1       2.430  -1.594   3.020  1.00  0.00           H  
+ATOM     28  C04 A8Z     1       0.725  -2.929   0.544  1.00  0.00           C  
+ATOM     29  O01 A8Z     1       1.358  -4.088   0.152  1.00  0.00           O  
+ATOM     30  H01 A8Z     1       0.730  -4.819   0.248  1.00  0.00           H  
+ATOM     31  H06 A8Z     1       1.462   0.362   1.024  1.00  0.00           H  
+ATOM     32  HB1 A8Z     1      -1.897   0.579   2.425  1.00  0.00           H  
+ATOM     33  HB3 A8Z     1      -0.398   1.491   1.982  1.00  0.00           H  
+ATOM     34   HA A8Z     1      -2.465   2.349   0.874  1.00  0.00           H  
+ATOM     35    C A8Z     1      -0.902   1.958  -0.612  1.00  0.00           C  
+ATOM     36    O A8Z     1      -0.995   1.628  -1.793  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   34   35                                       
+CONECT    4    3    5   32   33                                       
+CONECT    5    4    6    6   10                                       
+CONECT    6    5    5    7    9                                       
+CONECT    7    6    8   28   28                                       
+CONECT    8    7                                                      
+CONECT    9    6                                                      
+CONECT   10    5   11   11   31                                       
+CONECT   11   10   10   12   28                                       
+CONECT   12   11   13   13   18                                       
+CONECT   13   12   12   14   16                                       
+CONECT   14   13   15                                                 
+CONECT   15   14                                                      
+CONECT   16   13   17   20   20                                       
+CONECT   17   16                                                      
+CONECT   18   12   19   19   24                                       
+CONECT   19   18   18   20   23                                       
+CONECT   20   16   16   19   21                                       
+CONECT   21   20   22                                                 
+CONECT   22   21                                                      
+CONECT   23   19                                                      
+CONECT   24   18   25   26   27                                       
+CONECT   25   24                                                      
+CONECT   26   24                                                      
+CONECT   27   24                                                      
+CONECT   28    7    7   11   29                                       
+CONECT   29   28   30                                                 
+CONECT   30   29                                                      
+CONECT   31   10                                                      
+CONECT   32    4                                                      
+CONECT   33    4                                                      
+CONECT   34    3                                                      
+CONECT   35    3   36   36                                            
+CONECT   36   35   35                                                 
+MASTER        0    0    0    0    0    0    0    0   36    0   36    0
+END

@@ -1,0 +1,84 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A8D     1       3.508  -0.028   0.420  1.00  0.00           N  
+ATOM      2    H A8D     1       4.047   0.479   1.062  1.00  0.00           H  
+ATOM      3   CA A8D     1       2.312   0.566  -0.118  1.00  0.00           C  
+ATOM      4   CB A8D     1       1.066  -0.230   0.191  1.00  0.00           C  
+ATOM      5  CG1 A8D     1       0.625  -0.370   1.512  1.00  0.00           C  
+ATOM      6  CD1 A8D     1      -0.520  -1.107   1.797  1.00  0.00           C  
+ATOM      7  HD1 A8D     1      -0.865  -1.235   2.833  1.00  0.00           H  
+ATOM      8  HG1 A8D     1       1.184   0.122   2.327  1.00  0.00           H  
+ATOM      9  CG2 A8D     1       0.362  -0.842  -0.850  1.00  0.00           C  
+ATOM     10  CD2 A8D     1      -0.786  -1.586  -0.581  1.00  0.00           C  
+ATOM     11   CE A8D     1      -1.222  -1.713   0.743  1.00  0.00           C  
+ATOM     12   OZ A8D     1      -2.276  -2.553   1.090  1.00  0.00           O  
+ATOM     13   CH A8D     1      -3.574  -2.192   0.662  1.00  0.00           C  
+ATOM     14  CT3 A8D     1      -3.987  -0.768   1.075  1.00  0.00           C  
+ATOM     15  CI4 A8D     1      -5.335  -0.422   0.430  1.00  0.00           C  
+ATOM     16  OK4 A8D     1      -5.660   0.942   0.626  1.00  0.00           O  
+ATOM     17  HK4 A8D     1      -5.642   1.096   1.580  1.00  0.00           H  
+ATOM     18  HI4 A8D     1      -6.146  -1.068   0.870  1.00  0.00           H  
+ATOM     19  OI3 A8D     1      -4.177  -0.693   2.478  1.00  0.00           O  
+ATOM     20  HI3 A8D     1      -3.344  -0.968   2.884  1.00  0.00           H  
+ATOM     21  HT3 A8D     1      -3.200  -0.029   0.754  1.00  0.00           H  
+ATOM     22  OT1 A8D     1      -3.523  -2.331  -0.748  1.00  0.00           O  
+ATOM     23  CI1 A8D     1      -4.779  -2.072  -1.385  1.00  0.00           C  
+ATOM     24  CK1 A8D     1      -5.246  -0.638  -1.091  1.00  0.00           C  
+ATOM     25  OL1 A8D     1      -6.522  -0.489  -1.685  1.00  0.00           O  
+ATOM     26  HL1 A8D     1      -6.841   0.388  -1.427  1.00  0.00           H  
+ATOM     27  HK1 A8D     1      -4.527   0.108  -1.532  1.00  0.00           H  
+ATOM     28  CK5 A8D     1      -4.527  -2.270  -2.883  1.00  0.00           C  
+ATOM     29  OL5 A8D     1      -4.270  -3.623  -3.183  1.00  0.00           O  
+ATOM     30  HL5 A8D     1      -3.495  -3.886  -2.669  1.00  0.00           H  
+ATOM     31 HK53 A8D     1      -3.672  -1.624  -3.215  1.00  0.00           H  
+ATOM     32 HK52 A8D     1      -5.461  -2.006  -3.449  1.00  0.00           H  
+ATOM     33  HI1 A8D     1      -5.543  -2.811  -1.018  1.00  0.00           H  
+ATOM     34   HH A8D     1      -4.241  -2.973   1.129  1.00  0.00           H  
+ATOM     35  HD2 A8D     1      -1.350  -2.070  -1.393  1.00  0.00           H  
+ATOM     36  HG2 A8D     1       0.715  -0.747  -1.889  1.00  0.00           H  
+ATOM     37   HA A8D     1       2.441   0.629  -1.245  1.00  0.00           H  
+ATOM     38    C A8D     1       2.100   1.991   0.468  1.00  0.00           C  
+ATOM     39    O A8D     1       2.897   2.465   1.276  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   37   38                                       
+CONECT    4    3    5    5    9                                       
+CONECT    5    4    4    6    8                                       
+CONECT    6    5    7   11   11                                       
+CONECT    7    6                                                      
+CONECT    8    5                                                      
+CONECT    9    4   10   10   36                                       
+CONECT   10    9    9   11   35                                       
+CONECT   11    6    6   10   12                                       
+CONECT   12   11   13                                                 
+CONECT   13   12   14   22   34                                       
+CONECT   14   13   15   19   21                                       
+CONECT   15   14   16   18   24                                       
+CONECT   16   15   17                                                 
+CONECT   17   16                                                      
+CONECT   18   15                                                      
+CONECT   19   14   20                                                 
+CONECT   20   19                                                      
+CONECT   21   14                                                      
+CONECT   22   13   23                                                 
+CONECT   23   22   24   28   33                                       
+CONECT   24   15   23   25   27                                       
+CONECT   25   24   26                                                 
+CONECT   26   25                                                      
+CONECT   27   24                                                      
+CONECT   28   23   29   31   32                                       
+CONECT   29   28   30                                                 
+CONECT   30   29                                                      
+CONECT   31   28                                                      
+CONECT   32   28                                                      
+CONECT   33   23                                                      
+CONECT   34   13                                                      
+CONECT   35   10                                                      
+CONECT   36    9                                                      
+CONECT   37    3                                                      
+CONECT   38    3   39   39                                            
+CONECT   39   38   38                                                 
+MASTER        0    0    0    0    0    0    0    0   39    0   39    0
+END

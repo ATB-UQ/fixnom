@@ -1,0 +1,72 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N WZ5     1      -2.979  -0.461   0.269  1.00  0.00           N  
+ATOM      2    H WZ5     1      -2.794  -0.095   1.159  1.00  0.00           H  
+ATOM      3   CA WZ5     1      -2.183  -1.555  -0.219  1.00  0.00           C  
+ATOM      4   CB WZ5     1      -1.527  -1.214  -1.595  1.00  0.00           C  
+ATOM      5  CG2 WZ5     1      -0.457  -0.169  -1.503  1.00  0.00           C  
+ATOM      6  CD3 WZ5     1      -0.831   1.181  -1.513  1.00  0.00           C  
+ATOM      7  CE3 WZ5     1       0.134   2.180  -1.442  1.00  0.00           C  
+ATOM      8  HE3 WZ5     1      -0.149   3.244  -1.449  1.00  0.00           H  
+ATOM      9  HD3 WZ5     1      -1.895   1.458  -1.576  1.00  0.00           H  
+ATOM     10  CD2 WZ5     1       0.895  -0.516  -1.435  1.00  0.00           C  
+ATOM     11  CE2 WZ5     1       1.877   0.480  -1.382  1.00  0.00           C  
+ATOM     12  CZ3 WZ5     1       1.490   1.830  -1.381  1.00  0.00           C  
+ATOM     13  OH3 WZ5     1       2.416   2.871  -1.451  1.00  0.00           O  
+ATOM     14  CT3 WZ5     1       3.125   3.119  -0.272  1.00  0.00           C  
+ATOM     15  CI4 WZ5     1       2.531   3.130   0.991  1.00  0.00           C  
+ATOM     16  CK4 WZ5     1       3.296   3.490   2.099  1.00  0.00           C  
+ATOM     17  HK4 WZ5     1       2.835   3.500   3.097  1.00  0.00           H  
+ATOM     18  HI4 WZ5     1       1.472   2.852   1.099  1.00  0.00           H  
+ATOM     19  CI3 WZ5     1       4.484   3.460  -0.433  1.00  0.00           C  
+ATOM     20  OK3 WZ5     1       5.111   3.475  -1.653  1.00  0.00           O  
+ATOM     21  HK3 WZ5     1       4.495   3.111  -2.310  1.00  0.00           H  
+ATOM     22  CK5 WZ5     1       5.240   3.829   0.690  1.00  0.00           C  
+ATOM     23  CL4 WZ5     1       4.639   3.839   1.945  1.00  0.00           C  
+ATOM     24  HL4 WZ5     1       5.233   4.126   2.826  1.00  0.00           H  
+ATOM     25  HK5 WZ5     1       6.297   4.101   0.558  1.00  0.00           H  
+ATOM     26 ClZ2 WZ5     1       3.510   0.025  -1.326  1.00  0.00          Cl  
+ATOM     27  HD2 WZ5     1       1.195  -1.582  -1.414  1.00  0.00           H  
+ATOM     28  OG1 WZ5     1      -1.071  -2.457  -2.111  1.00  0.00           O  
+ATOM     29  HG1 WZ5     1      -0.458  -2.268  -2.832  1.00  0.00           H  
+ATOM     30   HB WZ5     1      -2.342  -0.837  -2.285  1.00  0.00           H  
+ATOM     31   HA WZ5     1      -2.867  -2.444  -0.406  1.00  0.00           H  
+ATOM     32    C WZ5     1      -1.112  -1.980   0.816  1.00  0.00           C  
+ATOM     33    O WZ5     1      -1.018  -1.403   1.898  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   31   32                                       
+CONECT    4    3    5   28   30                                       
+CONECT    5    4    6    6   10                                       
+CONECT    6    5    5    7    9                                       
+CONECT    7    6    8   12   12                                       
+CONECT    8    7                                                      
+CONECT    9    6                                                      
+CONECT   10    5   11   11   27                                       
+CONECT   11   10   10   12   26                                       
+CONECT   12    7    7   11   13                                       
+CONECT   13   12   14                                                 
+CONECT   14   13   15   15   19                                       
+CONECT   15   14   14   16   18                                       
+CONECT   16   15   17   23   23                                       
+CONECT   17   16                                                      
+CONECT   18   15                                                      
+CONECT   19   14   20   22   22                                       
+CONECT   20   19   21                                                 
+CONECT   21   20                                                      
+CONECT   22   19   19   23   25                                       
+CONECT   23   16   16   22   24                                       
+CONECT   24   23                                                      
+CONECT   25   22                                                      
+CONECT   26   11                                                      
+CONECT   27   10                                                      
+CONECT   28    4   29                                                 
+CONECT   29   28                                                      
+CONECT   30    4                                                      
+CONECT   31    3                                                      
+CONECT   32    3   33   33                                            
+CONECT   33   32   32                                                 
+MASTER        0    0    0    0    0    0    0    0   33    0   33    0
+END

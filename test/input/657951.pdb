@@ -1,0 +1,70 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A9O     1       2.041   1.312  -0.112  1.00  0.00           N  
+ATOM      2    H A9O     1       2.036   1.543  -1.065  1.00  0.00           H  
+ATOM      3   CA A9O     1       0.815   1.412   0.643  1.00  0.00           C  
+ATOM      4   CB A9O     1       0.523   0.128   1.482  1.00  0.00           C  
+ATOM      5  C13 A9O     1      -0.092  -1.015   0.735  1.00  0.00           C  
+ATOM      6  C14 A9O     1       0.608  -1.620  -0.318  1.00  0.00           C  
+ATOM      7  C15 A9O     1       0.072  -2.712  -0.992  1.00  0.00           C  
+ATOM      8  H20 A9O     1       0.610  -3.186  -1.825  1.00  0.00           H  
+ATOM      9  H19 A9O     1       1.598  -1.243  -0.615  1.00  0.00           H  
+ATOM     10  C18 A9O     1      -1.332  -1.535   1.125  1.00  0.00           C  
+ATOM     11  C17 A9O     1      -1.886  -2.627   0.461  1.00  0.00           C  
+ATOM     12  C16 A9O     1      -1.182  -3.208  -0.600  1.00  0.00           C  
+ATOM     13  O01 A9O     1      -1.682  -4.241  -1.384  1.00  0.00           O  
+ATOM     14  C01 A9O     1      -2.575  -5.120  -0.775  1.00  0.00           C  
+ATOM     15  C02 A9O     1      -3.643  -5.556  -1.574  1.00  0.00           C  
+ATOM     16  C03 A9O     1      -4.506  -6.525  -1.068  1.00  0.00           C  
+ATOM     17  H09 A9O     1      -5.344  -6.880  -1.686  1.00  0.00           H  
+ATOM     18  H08 A9O     1      -3.776  -5.141  -2.584  1.00  0.00           H  
+ATOM     19  C06 A9O     1      -2.373  -5.632   0.512  1.00  0.00           C  
+ATOM     20  C05 A9O     1      -3.253  -6.596   1.000  1.00  0.00           C  
+ATOM     21  C04 A9O     1      -4.316  -7.042   0.214  1.00  0.00           C  
+ATOM     22  H10 A9O     1      -5.006  -7.804   0.605  1.00  0.00           H  
+ATOM     23  H11 A9O     1      -3.104  -7.007   2.009  1.00  0.00           H  
+ATOM     24  H12 A9O     1      -1.531  -5.274   1.122  1.00  0.00           H  
+ATOM     25  H22 A9O     1       0.610  -3.186  -1.825  1.00  0.00           H  
+ATOM     26  H23 A9O     1      -1.871  -1.083   1.976  1.00  0.00           H  
+ATOM     27  O02 A9O     1      -0.359   0.506   2.536  1.00  0.00           O  
+ATOM     28  H02 A9O     1       0.177   0.960   3.198  1.00  0.00           H  
+ATOM     29  H03 A9O     1       1.504  -0.223   1.925  1.00  0.00           H  
+ATOM     30   HA A9O     1       0.940   2.245   1.412  1.00  0.00           H  
+ATOM     31    C A9O     1      -0.343   1.895  -0.257  1.00  0.00           C  
+ATOM     32    O A9O     1      -0.155   2.139  -1.448  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   30   31                                       
+CONECT    4    3    5   27   29                                       
+CONECT    5    4    6    6   10                                       
+CONECT    6    5    5    7    9                                       
+CONECT    7    6    8   12   12                                       
+CONECT    8    7   25                                                 
+CONECT    9    6                                                      
+CONECT   10    5   11   11   26                                       
+CONECT   11   10   10   12   25                                       
+CONECT   12    7    7   11   13                                       
+CONECT   13   12   14                                                 
+CONECT   14   13   15   15   19                                       
+CONECT   15   14   14   16   18                                       
+CONECT   16   15   17   21   21                                       
+CONECT   17   16                                                      
+CONECT   18   15                                                      
+CONECT   19   14   20   20   24                                       
+CONECT   20   19   19   21   23                                       
+CONECT   21   16   16   20   22                                       
+CONECT   22   21                                                      
+CONECT   23   20                                                      
+CONECT   24   19                                                      
+CONECT   25    8   11                                                 
+CONECT   26   10                                                      
+CONECT   27    4   28                                                 
+CONECT   28   27                                                      
+CONECT   29    4                                                      
+CONECT   30    3                                                      
+CONECT   31    3   32   32                                            
+CONECT   32   31   31                                                 
+MASTER        0    0    0    0    0    0    0    0   32    0   32    0
+END

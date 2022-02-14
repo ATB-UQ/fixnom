@@ -1,0 +1,76 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N GC5     1      -3.076  -0.812   0.214  1.00  0.00           N  
+ATOM      2    H GC5     1      -3.551  -1.530   0.683  1.00  0.00           H  
+ATOM      3   CA GC5     1      -1.662  -0.940  -0.016  1.00  0.00           C  
+ATOM      4  C01 GC5     1      -0.820   0.157   0.593  1.00  0.00           C  
+ATOM      5  C02 GC5     1       0.331   0.566  -0.089  1.00  0.00           C  
+ATOM      6  C03 GC5     1       1.153   1.583   0.411  1.00  0.00           C  
+ATOM      7  C07 GC5     1       2.364   1.964  -0.320  1.00  0.00           C  
+ATOM      8  C08 GC5     1       2.389   3.161  -1.072  1.00  0.00           C  
+ATOM      9  O02 GC5     1       1.333   4.038  -1.118  1.00  0.00           O  
+ATOM     10  H04 GC5     1       0.693   3.778  -0.436  1.00  0.00           H  
+ATOM     11  C09 GC5     1       3.501   3.525  -1.843  1.00  0.00           C  
+ATOM     12  H14 GC5     1       3.497   4.453  -2.429  1.00  0.00           H  
+ATOM     13  C12 GC5     1       3.508   1.152  -0.312  1.00  0.00           C  
+ATOM     14  C11 GC5     1       4.625   1.500  -1.076  1.00  0.00           C  
+ATOM     15  C10 GC5     1       4.611   2.674  -1.842  1.00  0.00           C  
+ATOM     16  O03 GC5     1       5.678   3.061  -2.619  1.00  0.00           O  
+ATOM     17  H06 GC5     1       6.363   2.380  -2.544  1.00  0.00           H  
+ATOM     18  H16 GC5     1       5.509   0.847  -1.086  1.00  0.00           H  
+ATOM     19  C13 GC5     1       3.586  -0.104   0.519  1.00  0.00           C  
+ATOM     20  N01 GC5     1       4.590  -0.110   1.553  1.00  0.00           N  
+ATOM     21  H03 GC5     1       4.404   0.601   2.233  1.00  0.00           H  
+ATOM     22  H07 GC5     1       5.500   0.054   1.165  1.00  0.00           H  
+ATOM     23  H01 GC5     1       3.790  -0.978  -0.171  1.00  0.00           H  
+ATOM     24  H02 GC5     1       2.589  -0.297   1.009  1.00  0.00           H  
+ATOM     25  H08 GC5     1       0.609   0.084  -1.041  1.00  0.00           H  
+ATOM     26  C06 GC5     1      -1.157   0.767   1.805  1.00  0.00           C  
+ATOM     27  C05 GC5     1      -0.370   1.795   2.315  1.00  0.00           C  
+ATOM     28  C04 GC5     1       0.774   2.210   1.618  1.00  0.00           C  
+ATOM     29  O01 GC5     1       1.559   3.248   2.063  1.00  0.00           O  
+ATOM     30  H05 GC5     1       1.214   3.537   2.922  1.00  0.00           H  
+ATOM     31  H11 GC5     1      -0.643   2.281   3.263  1.00  0.00           H  
+ATOM     32  H12 GC5     1      -2.043   0.443   2.372  1.00  0.00           H  
+ATOM     33   HA GC5     1      -1.505  -0.923  -1.142  1.00  0.00           H  
+ATOM     34    C GC5     1      -1.135  -2.284   0.566  1.00  0.00           C  
+ATOM     35    O GC5     1      -1.897  -3.068   1.129  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   33   34                                       
+CONECT    4    3    5    5   26                                       
+CONECT    5    4    4    6   25                                       
+CONECT    6    5    7   28   28                                       
+CONECT    7    6    8    8   13                                       
+CONECT    8    7    7    9   11                                       
+CONECT    9    8   10                                                 
+CONECT   10    9                                                      
+CONECT   11    8   12   15   15                                       
+CONECT   12   11                                                      
+CONECT   13    7   14   14   19                                       
+CONECT   14   13   13   15   18                                       
+CONECT   15   11   11   14   16                                       
+CONECT   16   15   17                                                 
+CONECT   17   16                                                      
+CONECT   18   14                                                      
+CONECT   19   13   20   23   24                                       
+CONECT   20   19   21   22                                            
+CONECT   21   20                                                      
+CONECT   22   20                                                      
+CONECT   23   19                                                      
+CONECT   24   19                                                      
+CONECT   25    5                                                      
+CONECT   26    4   27   27   32                                       
+CONECT   27   26   26   28   31                                       
+CONECT   28    6    6   27   29                                       
+CONECT   29   28   30                                                 
+CONECT   30   29                                                      
+CONECT   31   27                                                      
+CONECT   32   26                                                      
+CONECT   33    3                                                      
+CONECT   34    3   35   35                                            
+CONECT   35   34   34                                                 
+MASTER        0    0    0    0    0    0    0    0   35    0   35    0
+END

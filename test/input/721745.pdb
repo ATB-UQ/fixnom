@@ -1,0 +1,56 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A4G     1      -0.875   1.133   0.236  1.00  0.00           N  
+ATOM      2    H A4G     1      -1.329   1.988   0.387  1.00  0.00           H  
+ATOM      3   CA A4G     1      -1.629  -0.090   0.336  1.00  0.00           C  
+ATOM      4   CB A4G     1      -1.069  -1.065   1.385  1.00  0.00           C  
+ATOM      5   CG A4G     1       0.322  -1.485   1.072  1.00  0.00           C  
+ATOM      6  CD1 A4G     1       0.591  -2.237  -0.079  1.00  0.00           C  
+ATOM      7  CE1 A4G     1       1.893  -2.616  -0.395  1.00  0.00           C  
+ATOM      8  HE1 A4G     1       2.112  -3.206  -1.296  1.00  0.00           H  
+ATOM      9  HD1 A4G     1      -0.234  -2.528  -0.747  1.00  0.00           H  
+ATOM     10  CD2 A4G     1       1.371  -1.140   1.933  1.00  0.00           C  
+ATOM     11  CE2 A4G     1       2.679  -1.518   1.644  1.00  0.00           C  
+ATOM     12   CZ A4G     1       2.931  -2.241   0.469  1.00  0.00           C  
+ATOM     13   OH A4G     1       4.206  -2.659   0.168  1.00  0.00           O  
+ATOM     14  S02 A4G     1       5.498  -1.642  -0.040  1.00  0.00           S  
+ATOM     15  O01 A4G     1       5.063  -0.416  -0.437  1.00  0.00           O  
+ATOM     16  O02 A4G     1       5.887  -1.528   1.531  1.00  0.00           O  
+ATOM     17  H01 A4G     1       6.357  -2.234   1.971  1.00  0.00           H  
+ATOM     18  O03 A4G     1       6.464  -2.400  -0.623  1.00  0.00           O  
+ATOM     19  HE2 A4G     1       3.509  -1.249   2.316  1.00  0.00           H  
+ATOM     20  HD2 A4G     1       1.165  -0.558   2.845  1.00  0.00           H  
+ATOM     21  HB2 A4G     1      -1.745  -1.963   1.401  1.00  0.00           H  
+ATOM     22  HB3 A4G     1      -1.127  -0.595   2.404  1.00  0.00           H  
+ATOM     23   HA A4G     1      -1.609  -0.601  -0.678  1.00  0.00           H  
+ATOM     24    C A4G     1      -3.118   0.177   0.686  1.00  0.00           C  
+ATOM     25    O A4G     1      -3.532   1.324   0.844  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   23   24                                       
+CONECT    4    3    5   21   22                                       
+CONECT    5    4    6    6   10                                       
+CONECT    6    5    5    7    9                                       
+CONECT    7    6    8   12   12                                       
+CONECT    8    7                                                      
+CONECT    9    6                                                      
+CONECT   10    5   11   11   20                                       
+CONECT   11   10   10   12   19                                       
+CONECT   12    7    7   11   13                                       
+CONECT   13   12   14                                                 
+CONECT   14   13   15   16   18                                       
+CONECT   15   14                                                      
+CONECT   16   14   17                                                 
+CONECT   17   16                                                      
+CONECT   18   14                                                      
+CONECT   19   11                                                      
+CONECT   20   10                                                      
+CONECT   21    4                                                      
+CONECT   22    4                                                      
+CONECT   23    3                                                      
+CONECT   24    3   25   25                                            
+CONECT   25   24   24                                                 
+MASTER        0    0    0    0    0    0    0    0   25    0   25    0
+END

@@ -1,0 +1,114 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N MEG     1      -2.646   1.872   1.630  1.00  0.00           N  
+ATOM      2    H MEG     1      -2.401   2.728   1.222  1.00  0.00           H  
+ATOM      3   CA MEG     1      -3.084   0.794   0.788  1.00  0.00           C  
+ATOM      4  C01 MEG     1      -2.226  -0.440   0.936  1.00  0.00           C  
+ATOM      5  C02 MEG     1      -0.916  -0.448   0.456  1.00  0.00           C  
+ATOM      6  C03 MEG     1      -0.130  -1.610   0.450  1.00  0.00           C  
+ATOM      7  C13 MEG     1       1.150  -1.568  -0.255  1.00  0.00           C  
+ATOM      8  C08 MEG     1       2.301  -2.221   0.238  1.00  0.00           C  
+ATOM      9  C09 MEG     1       3.517  -2.144  -0.424  1.00  0.00           C  
+ATOM     10  H14 MEG     1       4.400  -2.664  -0.026  1.00  0.00           H  
+ATOM     11  H13 MEG     1       2.215  -2.811   1.163  1.00  0.00           H  
+ATOM     12  C12 MEG     1       1.202  -0.842  -1.447  1.00  0.00           C  
+ATOM     13  C11 MEG     1       2.426  -0.754  -2.116  1.00  0.00           C  
+ATOM     14  N01 MEG     1       2.757  -0.095  -3.303  1.00  0.00           N  
+ATOM     15  C07 MEG     1       4.111  -0.298  -3.547  1.00  0.00           C  
+ATOM     16  H02 MEG     1       4.597   0.141  -4.423  1.00  0.00           H  
+ATOM     17  H01 MEG     1       2.132   0.472  -3.822  1.00  0.00           H  
+ATOM     18  C10 MEG     1       3.612  -1.406  -1.606  1.00  0.00           C  
+ATOM     19  C14 MEG     1       4.672  -1.095  -2.541  1.00  0.00           C  
+ATOM     20  C15 MEG     1       6.058  -1.565  -2.449  1.00  0.00           C  
+ATOM     21  C16 MEG     1       7.074  -0.412  -2.586  1.00  0.00           C  
+ATOM     22  N02 MEG     1       7.303  -0.018  -3.957  1.00  0.00           N  
+ATOM     23  H06 MEG     1       7.566  -0.808  -4.515  1.00  0.00           H  
+ATOM     24  H09 MEG     1       8.033   0.668  -4.004  1.00  0.00           H  
+ATOM     25  C17 MEG     1       8.345  -0.809  -1.836  1.00  0.00           C  
+ATOM     26  O01 MEG     1       9.452  -1.034  -2.328  1.00  0.00           O  
+ATOM     27  O02 MEG     1       8.313  -0.916  -0.475  1.00  0.00           O  
+ATOM     28  H07 MEG     1       7.421  -0.722  -0.154  1.00  0.00           H  
+ATOM     29  H03 MEG     1       6.656   0.496  -2.051  1.00  0.00           H  
+ATOM     30  H04 MEG     1       6.254  -2.344  -3.236  1.00  0.00           H  
+ATOM     31  H05 MEG     1       6.212  -2.062  -1.452  1.00  0.00           H  
+ATOM     32  H17 MEG     1       0.309  -0.355  -1.869  1.00  0.00           H  
+ATOM     33  H08 MEG     1      -0.471   0.476   0.052  1.00  0.00           H  
+ATOM     34  C06 MEG     1      -2.758  -1.593   1.518  1.00  0.00           C  
+ATOM     35  C05 MEG     1      -1.962  -2.737   1.595  1.00  0.00           C  
+ATOM     36  C04 MEG     1      -0.654  -2.767   1.062  1.00  0.00           C  
+ATOM     37  O03 MEG     1       0.116  -3.899   1.105  1.00  0.00           O  
+ATOM     38  H10 MEG     1      -0.419  -4.613   1.492  1.00  0.00           H  
+ATOM     39  O04 MEG     1      -2.468  -3.951   2.060  1.00  0.00           O  
+ATOM     40  C18 MEG     1      -2.857  -3.981   3.399  1.00  0.00           C  
+ATOM     41  C19 MEG     1      -2.390  -3.082   4.363  1.00  0.00           C  
+ATOM     42  C20 MEG     1      -2.800  -3.241   5.686  1.00  0.00           C  
+ATOM     43  H26 MEG     1      -2.439  -2.541   6.454  1.00  0.00           H  
+ATOM     44  H25 MEG     1      -1.716  -2.262   4.078  1.00  0.00           H  
+ATOM     45  C23 MEG     1      -3.727  -5.030   3.738  1.00  0.00           C  
+ATOM     46  C22 MEG     1      -4.119  -5.171   5.066  1.00  0.00           C  
+ATOM     47  C21 MEG     1      -3.660  -4.281   6.039  1.00  0.00           C  
+ATOM     48  H27 MEG     1      -3.978  -4.400   7.085  1.00  0.00           H  
+ATOM     49  H28 MEG     1      -4.799  -5.989   5.347  1.00  0.00           H  
+ATOM     50  H29 MEG     1      -4.081  -5.720   2.959  1.00  0.00           H  
+ATOM     51  H12 MEG     1      -3.786  -1.614   1.912  1.00  0.00           H  
+ATOM     52   HA MEG     1      -4.160   0.547   1.055  1.00  0.00           H  
+ATOM     53    C MEG     1      -3.111   1.148  -0.729  1.00  0.00           C  
+ATOM     54    O MEG     1      -2.778   2.265  -1.121  1.00  0.00           O  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4   52   53                                       
+CONECT    4    3    5    5   34                                       
+CONECT    5    4    4    6   33                                       
+CONECT    6    5    7   36   36                                       
+CONECT    7    6    8    8   12                                       
+CONECT    8    7    7    9   11                                       
+CONECT    9    8   10   18   18                                       
+CONECT   10    9                                                      
+CONECT   11    8                                                      
+CONECT   12    7   13   13   32                                       
+CONECT   13   12   12   14   18                                       
+CONECT   14   13   15   17                                            
+CONECT   15   14   16   19   19                                       
+CONECT   16   15                                                      
+CONECT   17   14                                                      
+CONECT   18    9    9   13   19                                       
+CONECT   19   18   20   15   15                                       
+CONECT   20   19   21   30   31                                       
+CONECT   21   20   22   25   29                                       
+CONECT   22   21   23   24                                            
+CONECT   23   22                                                      
+CONECT   24   22                                                      
+CONECT   25   21   26   26   27                                       
+CONECT   26   25   25                                                 
+CONECT   27   25   28                                                 
+CONECT   28   27                                                      
+CONECT   29   21                                                      
+CONECT   30   20                                                      
+CONECT   31   20                                                      
+CONECT   32   12                                                      
+CONECT   33    5                                                      
+CONECT   34    4   35   35   51                                       
+CONECT   35   34   34   36   39                                       
+CONECT   36    6    6   35   37                                       
+CONECT   37   36   38                                                 
+CONECT   38   37                                                      
+CONECT   39   35   40                                                 
+CONECT   40   39   41   41   45                                       
+CONECT   41   40   40   42   44                                       
+CONECT   42   41   43   47   47                                       
+CONECT   43   42                                                      
+CONECT   44   41                                                      
+CONECT   45   40   46   46   50                                       
+CONECT   46   45   45   47   49                                       
+CONECT   47   42   42   46   48                                       
+CONECT   48   47                                                      
+CONECT   49   46                                                      
+CONECT   50   45                                                      
+CONECT   51   34                                                      
+CONECT   52    3                                                      
+CONECT   53    3   54   54                                            
+CONECT   54   53   53                                                 
+MASTER        0    0    0    0    0    0    0    0   54    0   54    0
+END

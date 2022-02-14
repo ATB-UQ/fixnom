@@ -1,0 +1,30 @@
+HEADER    UNCLASSIFIED
+TITLE     CYANA LIBRARY ATOMIC STRUCTURE
+AUTHOR    AUTOMATED TOPOLOGY BUILDER (https://atb.uq.edu.au)
+COMPND    UNNAMED
+ATOM      1    N A19     1       1.062   0.013  -0.271  1.00  0.00           N  
+ATOM      2    H A19     1       1.080   0.716  -0.953  1.00  0.00           H  
+ATOM      3   CA A19     1       2.319  -0.518   0.235  1.00  0.00           C  
+ATOM      4   CB A19     1       2.441  -2.043   0.040  1.00  0.00           C  
+ATOM      5  HB1 A19     1       1.615  -2.533   0.561  1.00  0.00           H  
+ATOM      6  HB2 A19     1       2.393  -2.301  -1.023  1.00  0.00           H  
+ATOM      7  HB3 A19     1       3.386  -2.407   0.452  1.00  0.00           H  
+ATOM      8   HA A19     1       2.392  -0.295   1.306  1.00  0.00           H  
+ATOM      9    C A19     1       3.445   0.214  -0.483  1.00  0.00           C  
+ATOM     10    O A19     1       3.286   0.954  -1.436  1.00  0.00           O  
+ATOM     11  O01 A19     1       4.642  -0.080   0.042  1.00  0.00           O  
+ATOM     12  H01 A19     1       5.325   0.380  -0.486  1.00  0.00           H  
+CONECT    1    2    3                                                 
+CONECT    2    1                                                      
+CONECT    3    1    4    8    9                                       
+CONECT    4    3    5    6    7                                       
+CONECT    5    4                                                      
+CONECT    6    4                                                      
+CONECT    7    4                                                      
+CONECT    8    3                                                      
+CONECT    9    3   10   10   11                                       
+CONECT   10    9    9                                                 
+CONECT   11    9   12                                                 
+CONECT   12   11                                                      
+MASTER        0    0    0    0    0    0    0    0   12    0   12    0
+END

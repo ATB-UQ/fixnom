@@ -30,9 +30,10 @@ $foundres=$found_n=$found_c=$found_o=0;
 	$j=$l=0;
     $i=1;
     $x=0;
-$atstart = $hlin = $l = $k = 0;
- $nterm=$cterm=0;
-$at_n=$at_c=$at_o=-1;
+    $atstart = $hlin = $l = $k = 0;
+    $nterm=$cterm=0;
+    $at_n=$at_c=$at_o=-1;
+
 foreach $line (@rlib)
 	{
 		@fields = split (' ', $line);
@@ -78,22 +79,23 @@ foreach $line (@rlib)
             $fil3_c[$l]=$line;
             $fil2_c[$i]=3;
 
-            #printf "%s %s %s %s\n", $fields[0], $fields[1], $fields[5], $fields2[0];
+            #printf "%s %s %s %s\n", $fields[0], $fields[1], $fields[5], $temp_c2[$l] ;
+            # printf "%s %s %s %s %s\n", $c, $n, $ca, $fields[1], $temp_c2[$l] ;
 
             if ($ca =~ $temp_c2[$l]  &&  length($ca) == length($temp_c2[$l]))
             {
                 $at_ca=$temp_c1[$l];
-                #printf "x%s %s %s %s\n", $fields[0], $fields[1], $fields[5], $ca;
+             #   printf "ca: %s\n", $at_ca;
             }
             if ($c =~ $temp_c2[$l]  &&  length($c) == length($temp_c2[$l]))
             {
                 $at_c=$temp_c1[$l];
-                #printf "%s %s %s %s\n", $fields[0], $fields[1], $fields[5], $ca;
+             #   printf "c: %s\n", $at_c;
             }
             if ($n =~ $temp_c2[$l]  &&  length($n) == length($temp_c2[$l]))
             {
                 $at_n=$temp_c1[$l];
-                #printf "%s %s %s %s\n", $fields[0], $fields[1], $fields[5], $ca;
+             #   printf "n: %s\n", $at_n;
             }
          }elsif ($i >= $inbnd && $i <= $endbnd)
          {
@@ -113,8 +115,10 @@ foreach $line (@rlib)
 
 $numlin		= $i-1;
 $numhat     = $l;
-
+# temp_c1 goes from 1 to numhat and has the atom ID.
+# temp_b1 goes from 1 to numbnd and has the bonds beteween atoms.
 #################################get NH AND CO ########################
+$at_hn=$at_co=$at_tco=$at_hn2=$at_hn3=-1;
 for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 {
     if($temp_c1[$i] == $at_c)
@@ -125,11 +129,21 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
             {
                 if($temp_b1[$j] == $temp_c1[$i] && $temp_c3[$temp_b2[$j]] =~ 'O')
                 {
+                    if ($at_co > 0) # CO already found so this second O must be part of C-terminus.
+                    {
+                        $at_tco=$temp_b2[$j];
+                    }else{
                     $at_co = $temp_b2[$j] ;
+                    }
                 }
                 if($temp_b2[$j] == $temp_c1[$i] && $temp_c3[$temp_b1[$j]] =~ 'O')
                 {
+                    if ($at_co > 0) # CO already found so this second O must be part of C-terminus.
+                    {
+                        $at_tco=$temp_b1[$j];
+                    }else{
                     $at_co = $temp_b1[$j] ;
+                    }
                 }
             }
         }
@@ -142,21 +156,43 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
             {
                 if($temp_b1[$j] == $temp_c1[$i] && $temp_c3[$temp_b2[$j]] =~ 'H')
                 {
-                    $at_hn = $temp_b2[$j] ;
+                    if ($at_hn > 0 && $at_hn2 > 0) # NH already found so this second/thrid NH  must be part of N-terminus. only goes to NH3
+                    {
+                        $at_hn3=$temp_b2[$j];
+                    }elsif($at_hn > 0 && $at_hn2 < 0)
+                    {
+                        $at_hn2=$temp_b2[$j];
+                    }elsif($at_hn < 0 )
+                    {
+                        $at_hn = $temp_b2[$j] ;
+                    }
                 }
                 if($temp_b2[$j] == $temp_c1[$i] && $temp_c3[$temp_b1[$j]] =~ 'H')
                 {
-                    $at_hn = $temp_b1[$j] ;
+                    if ($at_hn > 0 && $at_hn2 > 0) # NH already found so this second/thrid NH  must be part of N-terminus. only goes to NH3
+                    {
+                        $at_hn3=$temp_b1[$j];
+                    }elsif($at_hn > 0 && $at_hn2 < 0)
+                    {
+                        $at_hn2=$temp_b1[$j];
+                    }elsif($at_hn < 0 )
+                    {
+                        $at_hn = $temp_b1[$j] ;
+                    }
+#                    $at_hn = $temp_b1[$j] ;
                 }
             }
         }
     }
 }
+
+# above code identifies the HN hydrogen and teh CO oxygen. - at_nh and at_co
+
 ################################# CUT OUT CO SIDE OF THINGS ######################
 # NEED TO reduce matrix further to cut out N/C connections.
 # assumes index goes form 1 to end.
 # Sort so that CO is on top
-for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
+for ($i=1 ; $i <= $numhat ; $i++)
 {
     if($temp_c1[$i] == $at_c && $temp_c1[1] != $temp_c1[$i])
     {
@@ -167,22 +203,23 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 
     }
 }
-#printf "oxygen %i\n", $at_co;
-$temp_c4[1]=1;
+
+#printf "oxygen %i %i %i\n", $at_c, $at_n, $at_ca;
+$temp_c4[1]=1;      # above C' is set to 1 so this is C'
 $t1=1;
-for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
+for ($i=1 ; $i <= $numhat ; $i++)
 {
-    if($temp_c4[$i] == 1)
+    if($temp_c4[$i] == 1)           # only true when looking at C'
     {
         for ($j = 1 ; $j <= $numbnd ; $j++)
         {
-#            printf "%i %i %i\n", $temp_c1[$i], $temp_b1[$j], $at_ca;
+            #printf "A: %i %i %i\n", $temp_c1[$i], $temp_b1[$j], $at_ca;
 
             unless ($temp_b1[$j] == $at_ca || $temp_b2[$j] == $at_ca)
             {
                 if($temp_b1[$j] == $temp_c1[$i] )
                 {
-                    #printf "%i %s %i\n", $temp_b2[$j], $temp_c2[$temp_b2[$j]], $i;
+                    #printf "xxx%i %s %i\n", $temp_b1[$j], $temp_c1[$i], $i;
                     #need to match b2 to atom list
                     for ($i2=$i+1 ; $i2 <= $numhat ; $i2++)      ### just for printing
                     {
@@ -214,9 +251,9 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
         }
     }
     ## sort the array but record the ordered indexes.
-    for ($j=$i+1 ; $j <= $numhat ; $j++)      ### just for printing
+    for ($j=$i+1 ; $j < $numhat ; $j++)
     {
-        for ($k=$j+1 ; $k < $numhat ; $k++)      ### just for printing
+        for ($k=$j+1 ; $k <= $numhat ; $k++)
         {
             if($temp_c4[$k] > $temp_c4[$j])
             {
@@ -232,11 +269,14 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 }
 
 ################################# CUT OUT CO SIDE OF THINGS ######################
-
+#for ($i=1 ; $i <= $numhat ; $i++)
+#{
+#    print "$temp_c1[$i] $temp_c2[$i] $temp_c3[$i] $temp_c4[$i]\n";
+#}
 ################################# CUT OUT N SIDE OF THINGS ######################
 # NEED TO reduce matrix further to cut out N/C connections.
 # assumes index goes form 1 to end.
-# Sort so that CO is on top
+# Sort so that N is on top
 for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 {
     if($temp_c1[$i] == $at_n && $temp_c1[1] != $temp_c1[$i])
@@ -248,8 +288,10 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 
     }
 }
+
 #printf "oxygen %i\n", $at_co;
 $temp_c4[1]=-1;
+
 for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 {
     if($temp_c4[$i] == -1)
@@ -258,7 +300,7 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
         {
 #            printf "%i %i %i\n", $temp_c1[$i], $temp_b1[$j], $at_ca;
 
-            unless ($temp_b1[$j] == $at_ca || $temp_b2[$j] == $at_ca)
+            unless ($temp_b1[$j] == $at_ca || $temp_b2[$j] == $at_ca)   # fails for proline
             {
                 if($temp_b1[$j] == $temp_c1[$i] )
                 {
@@ -289,9 +331,9 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
         }
     }
     ## sort the array but record the ordered indexes.
-    for ($j=$i+1 ; $j <= $numhat ; $j++)      ### just for printing
+    for ($j=$i+1 ; $j < $numhat ; $j++)      ### just for printing
     {
-        for ($k=$j+1 ; $k < $numhat ; $k++)      ### just for printing
+        for ($k=$j+1 ; $k <= $numhat ; $k++)      ### just for printing
         {
             if($temp_c4[$k] < $temp_c4[$j])
             {
@@ -306,6 +348,90 @@ for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
 #     print "@$_ \n" for \( @temp_c1, @temp_c2, @temp_c4 );
 }
 
+for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
+{
+    if($temp_c1[$i] == $at_ca && $temp_c1[1] != $temp_c1[$i])
+    {
+        ($temp_c1[1], $temp_c1[$i]) = ($temp_c1[$i], $temp_c1[1]);
+        ($temp_c2[1], $temp_c2[$i]) = ($temp_c2[$i], $temp_c2[1]);
+        ($temp_c3[1], $temp_c3[$i]) = ($temp_c3[$i], $temp_c3[1]);
+        ($temp_c4[1], $temp_c4[$i]) = ($temp_c4[$i], $temp_c4[1]);
+
+    }
+}
+
+#printf "oxygen %i\n", $at_co;
+$temp_c4[1]=-2;
+
+for ($i=1 ; $i <= $numhat ; $i++)      ### just for printing
+{
+    if($temp_c4[$i] == -2)
+    {
+        for ($j = 1 ; $j <= $numbnd ; $j++)
+        {
+#            printf "%i %i %i\n", $temp_c1[$i], $temp_b1[$j], $at_ca;
+
+#            unless ($temp_b1[$j] == $at_c || $temp_b2[$j] == $at_c || $temp_b2[$j] == $at_n || $temp_b2[$j] == $at_n)   # fails for proline
+#            {
+                if($temp_b1[$j] == $temp_c1[$i] )
+                {
+                    #printf "%i %s %i\n", $temp_b2[$j], $temp_c2[$temp_b2[$j]], $i;
+                    #need to match b2 to atom list
+                    for ($i2=$i+1 ; $i2 <= $numhat ; $i2++)      ### just for printing
+                    {
+                        if ($temp_c1[$i2] == $temp_b2[$j])
+                        {
+                            unless ($temp_c1[$i2] == $at_c || $temp_c1[$i2] == $at_n)
+                            {
+                             $temp_c4[$i2]=-2;
+                            }
+                        }
+                    }
+                        
+                }
+                if($temp_b2[$j] == $temp_c1[$i] )
+                {
+
+                    for ($i2=$i+1 ; $i2 <= $numhat ; $i2++)      ### just for printing
+                    {
+                        if ($temp_c1[$i2] == $temp_b1[$j])
+                        {
+                            unless ($temp_c1[$i2] == $at_c || $temp_c1[$i2] == $at_n)
+                            {
+                             $temp_c4[$i2]=-2;
+                            }
+                        }
+                    }
+                }
+                
+ #           }
+        }
+    }
+
+
+    ## sort the array but record the ordered indexes.
+    for ($j=$i+1 ; $j < $numhat ; $j++)      ### just for printing
+    {
+        for ($k=$j+1 ; $k <= $numhat ; $k++)      ### just for printing
+        {
+            if($temp_c4[$k] < $temp_c4[$j])
+            {
+                ($temp_c1[$j], $temp_c1[$k]) = ($temp_c1[$k], $temp_c1[$j]);
+                ($temp_c2[$j], $temp_c2[$k]) = ($temp_c2[$k], $temp_c2[$j]);
+                ($temp_c3[$j], $temp_c3[$k]) = ($temp_c3[$k], $temp_c3[$j]);
+                ($temp_c4[$j], $temp_c4[$k]) = ($temp_c4[$k], $temp_c4[$j]);
+            }
+    
+        }
+    }
+#     print "@$_ \n" for \( @temp_c1, @temp_c2, @temp_c4 );
+}
+
+for ($i=1 ; $i <= $numhat ; $i++)
+{
+    if ($temp_c4[$i] == -2) {$temp_c4[$i]=0};
+#    print "E: $temp_c1[$i] $temp_c2[$i] $temp_c3[$i] $temp_c4[$i]\n";
+}
 
 $temp_c1[0]=-9999;
 
@@ -1609,7 +1735,7 @@ for ($i=1 ; $i <=$numlin ; $i++)        #   print hydrogens
         $hlen=length($fields[5]);
         if($fields[5] =~ 'H' && $hlen == 1)
         {
-            #printf "%s \n", $fil_c[$i];
+           # printf "%s \n %s\n", $fil_c[$i], $fields[1];
 
             $l++;
             $hmat[1][$l]=$fields[0];
@@ -1665,13 +1791,15 @@ for ($i=1 ; $i <=$hhat ; $i++)
         if ($lmat[1][$k] == $hmat[2][$i] && $hmat[4][$i] == 0)
         {
             $hmat[4][$i]=$lmat[16][$k];          #lmat 16 = number of H's attached to that carbon total - also how many h's there are
-            #printf "3at no: %i carb: %i \n", $lmat[1][$k], $hmat[2][$i];
+            #printf "3at no: %i carb: %i %i \n", $lmat[1][$k], $hmat[2][$i], $hmat[4][$i];
             $hmat[20][$i]=$lmat[8][$k];          #same chain, used later for printing
             if ($lmat[8][$k] == 1 && $c_ch_at[$lmat[11][$k]] == 1)
             {
                     if ($hmat[4][$i] == 1)
                     {
                         $hmat[6][$i] = sprintf("H%s  ", $gnam[$lmat[11][$k]]);
+                        #printf "3at no: %i carb: %i %i \n", $lmat[1][$k], $hmat[2][$i], $hmat[4][$i];
+                        #printf "%s %i\n", $hmat[6][$i], $hmat[1][$i];
                     }elsif ($hmat[4][$i] == 2 && $lmat[10][$k] == 6)        # for carbons it is HX2 and HX3 for some reason.
                     {
                         ####### CIP FOR HYDROGENS HX2 AND HX3 #############
@@ -1686,46 +1814,49 @@ for ($i=1 ; $i <=$hhat ; $i++)
                             #                            $lmat[30][$k]=$hmat[1][$i];
                             #printf "central: %i back: %i  h1: %i h2:%i\n", $lmat[1][$k], $lmat[9][$k], $hmat[1][$i], $lmat[30][$k];
                                     
-                            for ($xi=1 ; $xi <=$numlin ; $xi++)         #   print hydrogens
+                            for ($xi=$inat ; $xi <=$endat ; $xi++)         #   print hydrogens
                             {
                                 @fields = split (' ', $fil_c[$xi]);
                                 if ($xi > $atstart)
                                 {
-                                    #printf "%i %f %f\n",  $fields[0], $fields[6], $fields[7];
-                                    
+                             #       printf "%f %f %f\n",  $fields[2], $fields[3], $fields[4];
+                             #       printf "c: %i %i %i %i %i %i\n",  $fields[0], $lmat[1][$k], $lmat[9][$i], $at_n, $lmat[30][$k],  $hmat[1][$i];
+
                                     if($fields[0] == $lmat[1][$k])        # PUT SUBSTIUENT WHERE THE CENTRAL ATOM IS AND GIVE LOWEST PRIORITY
                                     {
-                                        @at4 = ($fields[5], $fields[6], $fields[7]);
+                                        @at3 = ($fields[2], $fields[3], $fields[4]);
+                                     #   printf "inside %f %f %f\n",  $fields[2], $fields[3], $fields[4];
+
                                     }
-                                    if($fields[0] == $at_n && $lmat[9][$i] == 0)    # first nitrogen you hit - shoudl be 1.
+                                    if($fields[0] == $at_n && $lmat[9][$k] == 0)    # first nitrogen you hit - shoudl be 1.
                                     {
-                                        @at3 = ($fields[5], $fields[6], $fields[7]);
+                                        @at2 = ($fields[2], $fields[3], $fields[4]);
                                     }
                                     
-                                    if($fields[0] == $lmat[9][$i] && $lmat[9][$i] > 0)
+                                    if($fields[0] == $lmat[9][$k] && $lmat[9][$k] > 0)
                                     {
                                         #print $lmat[9][$i] $fields0;
-                                        @at3 = ($fields[5], $fields[6], $fields[7]);
+                                        @at2 = ($fields[2], $fields[3], $fields[4]);
                                     }
                                     if($fields[0] == $lmat[30][$k])        # first hydrogen atom encountered on that carbon
                                     {
-                                        @at2 = ($fields[5], $fields[6], $fields[7]);
+                                        @at1 = ($fields[2], $fields[3], $fields[4]);
                                     }
                                     if($fields[0] == $hmat[1][$i])
                                     {
-                                        @at1 = ($fields[5], $fields[6], $fields[7]);
+                                        @at4 = ($fields[2], $fields[3], $fields[4]);
                                     }
                                 }
                             }
-                            
+                            #print "@at1, @at2, @at3, @at4\n";
                             &getrs(@at1, @at2, @at3, @at4, $det);
                             if ($det < 1)
                             {
-                                #printf "Clockwise.\n";
+                             #   printf "Clockwise.\n";
                             }
                             if ($det > 1)       # should only be here on second atom of 2
                             {
-                                #printf "Anti-clockwise. \n";
+                              #  printf "Anti-clockwise. \n";
                                 $anti=1;
                             }
                             
@@ -1735,13 +1866,13 @@ for ($i=1 ; $i <=$hhat ; $i++)
 
                         $hmat[6][$i] = sprintf("H%s%i ", $gnam[$lmat[11][$k]], $hmat[5][$i]+1);
                         ##################     for CIP2   ###################
-                        if ($anti == 0 && $hmat[5][$i] < $hmat[4][$i])
+                        if ($hmat[5][$i] < $hmat[4][$i])          # if first of a pair i store atom names for later swap
                         {
                             $lmat[31][$k]=$hmat[6][$i];
                             $lmat[32][$k]=$i;
                         }
-                        if ($anti == 1 && $hmat[5][$i] == $hmat[4][$i])
-                        {
+                        if ($anti == 1 && $hmat[5][$i] == $hmat[4][$i])          # last of a pair, if this atom being considered is clockwise (means HB3 is in position of HB2), then overwrite
+                        {                                                        # if the last of a pair is the pro-R then swap
                             $hmat[6][$lmat[32][$k]]=$hmat[6][$i];
                             $hmat[6][$i]=$lmat[31][$k];
                             #printf "swap\n";
@@ -1767,61 +1898,66 @@ for ($i=1 ; $i <=$hhat ; $i++)
                      {
                          #                            $lmat[30][$k]=$hmat[1][$i];
                          #printf "%i %i  %i %i\n", $lmat[1][$k], $lmat[9][$k], $hmat[1][$i], $lmat[30][$k];
-                         for ($xi=1 ; $xi <=$numlin ; $xi++)         #   print hydrogens
+                         #printf "central: %i back: %i  h1: %i h2:%i\n", $lmat[1][$k], $lmat[9][$k], $hmat[1][$i], $lmat[30][$k];
+                         
+                         for ($xi=$inat ; $xi <=$endat ; $xi++)         #   print hydrogens
                          {
                              @fields = split (' ', $fil_c[$xi]);
-                             if ($xi > $atstart)
-                             {
-                                 #printf "%i %f %f\n",  $fields[0], $fields[6], $fields[7];
-                                 
-                                 if($fields[0] == $lmat[1][$k])        # PUT SUBSTIUENT WHERE THE CENTRAL ATOM IS AND GIVE LOWEST PRIORITY
+                                if ($xi > $atstart)
                                  {
-                                     @at4 = ($fields[5], $fields[6], $fields[7]);
-                                 }
-                                 if($fields[0] == $at_n && $lmat[9][$i] == 0)    # first nitrogen you hit - shoudl be 1.
-                                 {
-                                     @at3 = ($fields[5], $fields[6], $fields[7]);
-                                 }
-                                 
-                                 if($fields[0] == $lmat[9][$i] && $lmat[9][$i] > 0)
-                                 {
-                                     #print $lmat[9][$i] $fields0;
-                                     @at3 = ($fields[5], $fields[6], $fields[7]);
-                                 }
-                                 if($fields[0] == $lmat[30][$k])        # first hydrogen atom encountered on that carbon
-                                 {
-                                     @at2 = ($fields[5], $fields[6], $fields[7]);
-                                 }
-                                 if($fields[0] == $hmat[1][$i])
-                                 {
-                                     @at1 = ($fields[5], $fields[6], $fields[7]);
+                                     #printf "%f %f %f\n",  $fields[2], $fields[3], $fields[4];
+                                     #printf "c: %i %i %i %i %i %i\n",  $fields[0], $lmat[1][$k], $lmat[9][$i], $at_n, $lmat[30][$k],  $hmat[1][$i];
+
+                                     if($fields[0] == $lmat[1][$k])        # PUT SUBSTIUENT WHERE THE CENTRAL ATOM IS AND GIVE LOWEST PRIORITY
+                                     {
+                                         @at3 = ($fields[2], $fields[3], $fields[4]);
+                                         #printf "inside %f %f %f\n",  $fields[2], $fields[3], $fields[4];
+
+                                     }
+                                     if($fields[0] == $at_n && $lmat[9][$k] == 0)    # first nitrogen you hit - shoudl be 1.
+                                     {
+                                         @at2 = ($fields[2], $fields[3], $fields[4]);
+                                     }
+                                     
+                                     if($fields[0] == $lmat[9][$k] && $lmat[9][$k] > 0)
+                                     {
+                                         #print $lmat[9][$i] $fields0;
+                                         @at2 = ($fields[2], $fields[3], $fields[4]);
+                                     }
+                                     if($fields[0] == $lmat[30][$k])        # first hydrogen atom encountered on that carbon
+                                     {
+                                         @at1 = ($fields[2], $fields[3], $fields[4]);
+                                     }
+                                     if($fields[0] == $hmat[1][$i])
+                                     {
+                                         @at4 = ($fields[2], $fields[3], $fields[4]);
+                                     }
                                  }
                              }
-                         }
-                         
-                         &getrs(@at1, @at2, @at3, @at4, $det);
-                         if ($det < 1)
-                         {
-                             #printf "Clockwise.\n";
-                         }
-                         if ($det > 1)       # should only be here on second atom of 2
-                         {
-                             #printf "Anti-clockwise. \n";
-                             $anti=1;
-                         }
+                             #print "@at1, \n@at2, \n@at3, \n@at4\n";
+                             &getrs(@at1, @at2, @at3, @at4, $det);
+                             if ($det < 1)
+                             {
+                              #   printf "Clockwise. 2\n";
+                             }
+                             if ($det > 1)       # should only be here on second atom of 2
+                             {
+                               #  printf "Anti-clockwise. 2\n";
+                                 $anti=1;
+                             }
                          
                          
                      }
                      ##################    END   for CIP   ##################
                     $hmat[6][$i] = sprintf("H%s%i%i", $gnam[$lmat[11][$k]], $lmat[8][$k], $hmat[5][$i]+1);
                     ##################     for CIP2   ###################
-                    if ($anti == 0 && $hmat[5][$i] < $hmat[4][$i])
+                    if ($hmat[5][$i] < $hmat[4][$i])          # if first of a pair i store atom names for later swap
                     {
                         $lmat[31][$k]=$hmat[6][$i];
                         $lmat[32][$k]=$i;
                     }
-                    if ($anti == 1 && $hmat[5][$i] == $hmat[4][$i])
-                    {
+                    if ($anti == 1 && $hmat[5][$i] == $hmat[4][$i])          # last of a pair, if this atom being considered is clockwise (means HB3 is in position of HB2), then overwrite
+                    {                                                        # if the last of a pair is the pro-R then swap
                         $hmat[6][$lmat[32][$k]]=$hmat[6][$i];
                         $hmat[6][$i]=$lmat[31][$k];
                         #printf "swap\n";
@@ -1833,11 +1969,12 @@ for ($i=1 ; $i <=$hhat ; $i++)
             }
         }
     }
-    if ($hmat[2][$i] == 3 && $nterm == 0)
-    {
-        $hmat[6][$i] = sprintf("H   ");     #special case for amide H
-        $hmat[20][$i]=1;
-    }
+
+#    if ($hmat[2][$i] == 3 && $nterm == 0)
+#    {
+#        $hmat[6][$i] = sprintf("H   ");     #special case for amide H
+#        $hmat[20][$i]=1;
+#    }
     if ($hmat[2][$i] == 1 && $nterm == 1)
     {
         if ($allnh == 1)
@@ -1848,6 +1985,8 @@ for ($i=1 ; $i <=$hhat ; $i++)
         }
         $hmat[20][$i]=1;
     }
+        #printf "n %s %i %i\n", $hmat[6][$i], $hmat[1][$i], $hmat[2][$i];
+
 }
 for ($i=1 ; $i <=$hhat ; $i++)        # get pseudoatoms
 {
@@ -1858,8 +1997,76 @@ for ($i=1 ; $i <=$hhat ; $i++)        # get pseudoatoms
 }
 
 ############### PRINT #############
+$i=0;
+for ($xi=$inat ; $xi <=$endat ; $xi++)        #   print hydrogens
+{
+    @fields = split (' ', $fil_c[$xi]);
+    if ($xi > $atstart)
+    {
+        # LOOKING FOR STANDARD N/C TERMINAL ATOMS
+        if ($fields[0] == $at_tco)
+        {
+            #print "found co\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("O2");
+            $i++;
+        }
+        if ($fields[0] == $at_hn2)
+        {
+           # print "found HN2\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("H2");
+            $i++;
+
+        }
+        if ($fields[0] == $at_hn3)
+        {
+            print "found H3\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("H3");
+            $i++;
+        }
+        # LOOKING FOR BACKBONE HN N C' and (C')OTERMINAL ATOMS
+        if ($fields[0] == $at_hn && $at_hn2 > 0)
+        {
+            #print "found H\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("H1");
+            $i++;
+        }elsif($fields[0] == $at_hn && $at_hn2 < 0)
+        {
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("HN");
+            $i++;
+        }
+            
+        if ($fields[0] == $at_c)
+        {
+            #print "found C'\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("C");
+            $i++;
+        }
+        if ($fields[0] == $at_n)
+        {
+            #print "found N\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("N");
+            $i++;
+        }
+        if ($fields[0] == $at_co)
+        {
+            #print "found CO\n";
+            $bbmat[1][$i] = $fields[0];
+            $bbmat[2][$i] = sprintf("O");
+            $i++;
+        }
 
 
+    }
+}
+$allbb=$i;
+#print ("$allbb\n");
 
 #$mol2 = sprintf("block_%s", $inputfile);
 
@@ -1867,13 +2074,25 @@ open(OUT, '>', $outputfile) || die "Can't open output file";
 #        printf OUT "%s",$head[$i];
 
 $endb=0;
-for ($j = 1 ; $j < $numlin ;  $j++)
+for ($j = 1 ; $j <= $numlin ;  $j++)
 {
     @fields = split (' ', $fil_c[$j]);
 
      if ($fil2_c[$j] == 3)
      {
             $endb=0;
+            for ($i=0 ; $i < $allbb ; $i++)      ### just for printing
+            {
+             if ($bbmat[1][$i] == $fields[0])
+             {
+                # print ("$bbmat[2][$i]\n");
+                 $bbmat[2][$i]=sprintf("%4s", $bbmat[2][$i]);
+                 substr($fil_c[$j],8,4)=$bbmat[2][$i];
+                 printf OUT "%s\n", $fil_c[$j];
+                 $endb=1
+             }
+            }
+
             for ($i=1 ; $i <= $hhat ; $i++)      ### just for printing
             {
                 if ($hmat[1][$i] == $fields[0] && $hmat[5][$i] > 0)
@@ -1904,9 +2123,15 @@ for ($j = 1 ; $j < $numlin ;  $j++)
              }
             }
          if ($endb==0){printf OUT "%s\n", $fil_c[$j]}
+            
      }else{
-     printf OUT "%s\n", $fil_c[$j];
-     }
+            if ($j == $numlin )
+            {
+                printf OUT "%s", $fil_c[$j];
+            }else{
+             printf OUT "%s\n", $fil_c[$j];
+            }
+    }
 }
 close OUT;
 
@@ -2194,19 +2419,39 @@ sub sub_priority
             ###     STEP 3: ########## IF SELF CANNOT DISTINGUISH PRIORITY  USE R/S RULE ##############
             if ($nors == 1) {next} ;         #printf "not resolved %i %i %i %i %i\n",  $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]], $lmat[1][$i], $lmat[9][$i], $bond_lst_l[1][$i] ;
             $found_4=0;
-            
             if ($bond_lst_l[1][$i] == 4)  {$found_4=1} ;    # four heteroatoms
-            
-            if ($bond_lst_l[1][$i] >= 3)                    # three heteroatoms
+            if ($bond_lst_l[1][$i] == 3)                    # three heteroatoms
             {
-                for ($xi=1 ; $xi <=$numlin ; $xi++)         #   print hydrogens
+                ########## get attached H
+                for ($xi=1 ; $xi <=$numlin ; $xi++)        #   print hydrogens
+                {
+                    @fields = split (' ', $fil_c[$xi]);
+                    if ($xi > $atstart)
+                    {
+                        if($fields[2] =~ 'H_')
+                        {
+                            if ($fields[8] == $lmat[1][$i])        # attached carbon
+                            {
+                                $found_4=1;
+                            }
+                        }
+                    }
+                }
+                
+                ##################
+            }
+            if ($found_4 == 1)
+            {
+                #printf "back: %i central: %i  e2: %i e1:%i\n", $lmat[9][$i], $lmat[1][$i], $lmat[1][$fpr[$p]], $lmat[1][$fpr[$p2]];
+
+                for ($xi=$inat ; $xi <=$endat ; $xi++)         #   print hydrogens
                 {
                     @fields = split (' ', $fil_c[$xi]);
                     if ($xi > $atstart)
                     {
                         if($fields[0] == $lmat[1][$i])
                         {
-                            @at4 = ($fields[2], $fields[3], $fields[4]);
+                            @at3 = ($fields[2], $fields[3], $fields[4]);
                             if($fields[5] =~ 'C.3')
                             {
                                 $found_4=1;
@@ -2215,12 +2460,12 @@ sub sub_priority
                         if($fields[0] == $lmat[9][$i] && $lmat[9][$i] > 0)
                         {
                             #print $lmat[9][$i] $fields0;
-                            @at3 = ($fields[2], $fields[3], $fields[4]);
+                            @at2 = ($fields[2], $fields[3], $fields[4]);
                         }
                         if($fields[0] == $at_n && $lmat[9][$i] == 0)
                         {
                             #print $lmat[9][$i] $fields0;
-                            @at3 = ($fields[2], $fields[3], $fields[4]);
+                            @at2 = ($fields[2], $fields[3], $fields[4]);
                         }
                         
                         if($fields[0] == $lmat[1][$fpr[$p]])
@@ -2229,29 +2474,26 @@ sub sub_priority
                         }
                         if($fields[0] == $lmat[1][$fpr[$p2]])
                         {
-                            @at2 = ($fields[2], $fields[3], $fields[4]);
+                            @at4 = ($fields[2], $fields[3], $fields[4]);
                         }
                         
                     }
                 }
-            }
-            
-            ########## BELOW SAME AS MAIN ########
-            if ($found_4==1)   # 3 bound heteroatoms - > sp2 or sp3, if no hydrogen then sp2
-            {
+                #print "@at1, \n@at2, \n@at3, \n@at4\n";
+
                 getrs(@at1, @at2, @at3, @at4, $det);
                 #printf "%f\n", $det;
                 #printf "%f\n", $det;
                 if ($det < 1)
                 {
-                    #printf "Clockwise. order is: %i %i. \n", $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]];
+                    #printf "Clockwise (R / X2). order is: %i %i. \n", $lmat[1][$fpr[$p]],  $lmat[1][$fpr[$p2]];
                     #$fine=1;
                     
                     #last;
                 }
                 if ($det > 1)
                 {
-                    #printf "Anti-clockwise. order is: %i %i. \n", $lmat[1][$fpr[$p2]],  $lmat[1][$fpr[$p]];
+                    #printf "Anti-clockwise (S / X3). order is: %i %i. \n", $lmat[1][$fpr[$p2]],  $lmat[1][$fpr[$p]];
                     #$temp_ch            = $cord[$p];
                     #$cord[$p]           = $cord[$p2];
                     #$cord[$p2]          = $temp_ch;
@@ -2288,3 +2530,6 @@ sub sub_priority
     #                        }
     
 }
+
+
+

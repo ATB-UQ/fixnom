@@ -9,6 +9,8 @@
 
 use Getopt::Long;
 use File::Basename;
+use File::Path qw(make_path);
+
 #READ OPTIONS ****************************
 GetOptions('i=s' => \$inputfile, 
 		   'o=s' => \$outputfile,
@@ -1696,7 +1698,7 @@ for ($i=1 ; $i <=$qhat ; $i++)        # get pseudoatoms
 #### START PRINTING
     open(OUT, ">$outputfile") || die "Can't open output file";
 	my($filename, $directories, $suffix) = fileparse($outputfile);
-    $output2 = sprintf("translate_%s", $filename);
+    $output2 =  sprintf("%s/translate_%s", $directories, $filename);
     open(OUT2, ">$output2") || die "Can't open output file";
     printf OUT2 "OLD NEW\n";
 

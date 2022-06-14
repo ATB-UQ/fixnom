@@ -3,6 +3,8 @@
 #Program to rename MOL2 file according to IUPAC
 #
 use Getopt::Long;
+use File::Basename;
+use File::Path qw(make_path);
 
 #READ OPTIONS ****************************
 GetOptions('ca=s' => \$ca,
@@ -503,7 +505,9 @@ my @order = sort{ $temp_c4[ $a ] <=> $temp_c4[ $b ] } @0 .. $#temp_c4;
 @temp_c3 = @temp_c3[ @order ];
 @temp_c4 = @temp_c4[ @order ];
 @fil3_c  = @fil3_c[ @order ];
-$mol2 = sprintf("block_%s", $inputfile);
+
+my($filename, $directories, $suffix) = fileparse($inputfile);
+$mol2 = sprintf("%s/block_%s", $directories, $filename);
 
 open(OUT2, '>', $mol2) || die "Can't open output file";
 #        printf OUT "%s",$head[$i];

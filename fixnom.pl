@@ -22,7 +22,7 @@ open(LIB, $inputfile) || die "Error: Could not open input library file.\nUsage\n
 close(LIB);
 # ***********************
 # READ GREEK NAMES
-my @gnam  =('A', 'B', 'G', 'D', 'E', 'Z', 'H', 'T', 'I', 'K', 'L', 'M', 'N', 'X', 'O', 'P', 'R', 'S', 'J', 'U', 'F', 'C', 'Y', 'W');
+my @gnam  =('A', 'B', 'G', 'D', 'E', 'Z', 'H', 'Q', 'I', 'K', 'L', 'M', 'N', 'X', 'O', 'P', 'R', 'S', 'T', 'Y', 'F', 'C', 'U', 'W');
 $gind=0;    # index to keep track of names
 #********
 # READ element types

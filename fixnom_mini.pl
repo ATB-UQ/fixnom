@@ -18,7 +18,7 @@ open(LIB, $inputfile) || die "Error: Could not open input library file.\nUsage\n
 close(LIB);
 # ***********************
 # READ GREEK NAMES
-my @gnam  =('A', 'B', 'G', 'D', 'E', 'Z', 'H', 'T', 'I', 'K', 'L', 'M', 'N', 'X', 'O', 'P', 'R', 'S', 'J', 'U', 'F', 'C', 'Y', 'W');
+my @gnam  =('A', 'B', 'G', 'D', 'E', 'Z', 'H', 'Q', 'I', 'K', 'L', 'M', 'N', 'X', 'O', 'P', 'R', 'S', 'T', 'Y', 'F', 'C', 'U', 'W');
 $gind=0;    # index to keep track of names
 #********
 
@@ -1995,7 +1995,45 @@ for ($i=1 ; $i <=$hhat ; $i++)        # get pseudoatoms
             printf "%i %s\n", $hmat[1][$i], $hmat[6][$i];
     }
 }
+##############   20220614 - for re-ordering.
+$k=0;
+for ($i=1 ; $i < $nhat ; $i++)
+{
+    $k++;
+    $orgmat[$k]=$lmat[1][$i];
+    #printf "R: %i %s\n", $lmat[1][$i], $lmat[13][$i];
+    for ($j=1 ; $j <=$hhat ; $j++)        # get pseudoatoms
+    {
+        if ($hmat[5][$j] > 0 && $hmat[2][$j] == $lmat[1][$i])
+        {
+                $k++;
+                $orgmat[$k]=$hmat[1][$j];
+              #  printf "R: %i %s\n", $hmat[1][$j], $hmat[6][$j];
+        }
+    }
 
+}
+$maxk=$k;
+my @sorted_orgmat = sort { $a <=> $b } @orgmat;
+for ($k=1 ; $k<=$maxk ; $k++)
+{
+ #   printf "%i %i\n", $orgmat[$k], $sorted_orgmat[$k];
+}
+$k=0;
+for ($i=1 ; $i < $nhat ; $i++)
+{
+    $k++;
+    printf "S: %i %s %i\n", $lmat[1][$i], $lmat[13][$i], $sorted_orgmat[$k];
+    for ($j=1 ; $j <=$hhat ; $j++)        # get pseudoatoms
+    {
+        if ($hmat[5][$j] > 0 && $hmat[2][$j] == $lmat[1][$i])
+        {
+                $k++;
+                printf "S: %i %s %i\n", $hmat[1][$j], $hmat[6][$j], $sorted_orgmat[$k];
+        }
+    }
+
+}
 ############### PRINT #############
 $i=0;
 for ($xi=$inat ; $xi <=$endat ; $xi++)        #   print hydrogens

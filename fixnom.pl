@@ -101,6 +101,13 @@ foreach $line (@rlib)
 
         if ($foundres == 1 && $i > $numang+$hlin)     # after residue statement and after angles.
         {
+            if ((substr ($line, 9, 1)) != " ")
+            {
+                $tst = substr ($line, 6, 4) ;
+                substr ($line, 5, 4) = $tst;
+                substr ($line, 9, 1) = ' ';
+                @fields = split (' ', $line);
+            };
             if ($atstart == 0 ){ $atstart = $i};        # starts at frist atom after header
                     if ($fields[0] == 3 && $fields[1] == 'N' && $nterm == 0)
                     {

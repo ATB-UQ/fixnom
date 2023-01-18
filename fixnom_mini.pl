@@ -20,8 +20,25 @@ open(LIB, $inputfile) || die "Error: Could not open input library file.\nUsage\n
 close(LIB);
 # ***********************
 # READ GREEK NAMES
-my @gnam  =('A', 'B', 'G', 'D', 'E', 'Z', 'H', 'Q', 'I', 'K', 'L', 'M', 'N', 'X', 'O', 'P', 'R', 'S', 'T', 'Y', 'F', 'C', 'U', 'W');
+my @gnam2  =('A', 'B', 'G', 'D', 'E', 'Z', 'H', 'Q', 'I', 'K', 'L', 'M', 'N', 'X', 'O', 'P', 'R', 'S', 'T', 'Y', 'F', 'C', 'U', 'W');
+# 24 greek letters. Once we run out we do AA, AB etc. another 24. This is done 24 times, to give 576 atoms. Outside of this the name will be blank.
 $gind=0;    # index to keep track of names
+#******** expand to 600 atoms
+$k=0;
+for ($j = 0 ; $j < 24 ; $j++)
+{
+    $gnam[$k]=sprintf("%s", $gnam2[$j]);
+    printf "%s\n", $gnam[$k];
+    $k++;
+}
+for ($i = 0 ; $i < 24 ; $i++)
+{
+        for ($j = 0 ; $j < 24 ; $j++)
+        {
+            $gnam[$k]=sprintf("%s%s", $gnam2[$i], $gnam2[$j]);
+            $k++;
+        }
+}
 #********
 
 
